@@ -1,16 +1,18 @@
-import { useContext } from "react";
-import { AuthContext } from "./AuthProvider";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo-no-background.png";
+import useLocalStorage from "use-local-storage";
 
 export default function Navbar() {
   const auth = getAuth();
   const navigate = useNavigate();
-  const { currentUser } = useContext(AuthContext);
+  const [userId, setUserId] = useLocalStorage("userId", null);
 
-  const handleLogout = () => auth.signOut();
-  if (!currentUser) {
+  const handleLogout = () => {
+    auth.signOut();
+    setUserId(null);
+  };
+  if (!userId) {
     navigate("*");
   }
 

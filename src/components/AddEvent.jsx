@@ -1,8 +1,8 @@
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AuthContext } from "./AuthProvider";
+// import { AuthContext } from "./AuthProvider";
 import { addNewEvent } from "../reducers/eventSlice";
 
 export default function AddEvent() {
@@ -13,8 +13,8 @@ export default function AddEvent() {
   const [days, setDays] = useState("");
   const [time, setTime] = useState("");
 
-  const { currentUser } = useContext(AuthContext);
-  const userId = currentUser.uid;
+  // const { currentUser } = useContext(AuthContext);
+  const userId = localStorage.getItem("userId");
 
   const handleAddEvent = async () => {
     const eventData = {
@@ -27,7 +27,7 @@ export default function AddEvent() {
 
     try {
       dispatch(addNewEvent(eventData));
-      console.log(userId);
+      // console.log(userId);
       navigate("/dashboard");
     } catch (error) {
       console.log("Error:", error);

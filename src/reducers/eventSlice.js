@@ -5,11 +5,14 @@ const BASE_URL =
   "https://booking-system-api-suwanki.sigma-school-full-stack.repl.co";
 
 // Thunk to get user's post
-export const fetchPostsByUser = createAsyncThunk(
+export const fetchEventsByUser = createAsyncThunk(
   "posts/fetchByUser",
   async (userId) => {
     const response = await fetch(`${BASE_URL}/events/username/${userId}`);
-    return response.json();
+    const data = await response.json();
+    console.log(userId);
+    console.log(data);
+    return data;
   }
 );
 
@@ -36,13 +39,12 @@ const eventsSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    // Handle addNewEvent.fulfilled
-    builder.addCase(addNewEvent.fulfilled, (state, action) => {
-      state.events.push(action.payload);
+    builder.addCase(fetchEventsByUser.fulfilled, (state, action) => {
+      state.events = action.payload;
     });
-    // Handle addNewEvent.rejected
-    builder.addCase(addNewEvent.rejected, (state, action) => {
-      state.error = action.error.message;
+    builder.addCase(addNewEvent.fulfilled, (state, action) => {
+      // state.events = [action.payload, ...state.events];
+      state.events = [...state.events, action.payload];
     });
   },
 });

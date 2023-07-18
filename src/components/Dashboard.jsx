@@ -1,7 +1,6 @@
 import Navbar from "./Navbar";
 import EventCard from "./EventCard";
 import { useNavigate } from "react-router-dom";
-import { UseSelector } from "react-redux/es/hooks/useSelector";
 
 export default function Dashboard() {
   const navigate = useNavigate();
