@@ -30,6 +30,20 @@ export const addNewEvent = createAsyncThunk(
   }
 );
 
+// Thunk to delete an event
+export const deleteEvent = createAsyncThunk(
+  "events/deleteEvent",
+  async (eventId) => {
+    try {
+      await axios.delete(`${BASE_URL}/events/${eventId}`);
+      return eventId;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+);
+
 // Create events slice
 const eventsSlice = createSlice({
   name: "events",
@@ -45,6 +59,11 @@ const eventsSlice = createSlice({
     builder.addCase(addNewEvent.fulfilled, (state, action) => {
       // state.events = [action.payload, ...state.events];
       state.events = [...state.events, action.payload];
+    });
+    builder.addCase(deleteEvent.fulfilled, (state, action) => {
+      state.events = state.events.filter(
+        (event) => event.id !== action.payload
+      );
     });
   },
 });

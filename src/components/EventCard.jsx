@@ -2,29 +2,36 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { fetchEventsByUser } from "../reducers/eventSlice";
 import { useDispatch } from "react-redux";
+import { deleteEvent } from "../reducers/eventSlice";
 
 export default function EventCard() {
   const events = useSelector((state) => state.events.events);
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
-  // const key = new Date();
 
   useEffect(() => {
     dispatch(fetchEventsByUser(userId));
-    // console.log(userId);
   }, [userId, dispatch]);
+
+  const handleDeleteEvent = (eventId) => {
+    dispatch(deleteEvent(eventId));
+  };
 
   return (
     <div className='flex flex-wrap gap-4'>
+      <div className='loader'></div>
       {events.map((event) => (
         <div
           key={event.id}
           className='w-80 max-w-96 p-6  border border-gray-200 rounded-lg sbg-stone-200 shadow-md shadow-slate-300'
         >
-          <a href='#'>
+          <a href='#' className='flex items-center justify-between'>
             <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900'>
               {event.title}
             </h5>
+            <a className='text-xs' onClick={() => handleDeleteEvent(event.id)}>
+              Delete
+            </a>
           </a>
           <p className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
             {event.type}

@@ -11,12 +11,17 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const auth = getAuth();
   const { currentUser } = useContext(AuthContext);
+  const userId = localStorage.getItem("userId");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUser) navigate("/dashboard");
-  }, [currentUser, navigate]);
+
+    if (!currentUser && userId == null) {
+      navigate("*");
+    }
+  }, [currentUser, userId, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

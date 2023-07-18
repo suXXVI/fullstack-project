@@ -9,8 +9,8 @@ export default function Dashboard() {
     <div>
       <Navbar />
       <div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
-        <div className='flex justify-between w-full'>
-          <h1 className='text-3xl font-extralight'>Events</h1>
+        <div className='flex justify-between items-center w-full'>
+          <p className='text-2xl font-extralight'>Events</p>
           <button
             onClick={() => navigate("/addevent")}
             type='button'

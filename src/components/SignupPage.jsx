@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo-no-background.png";
 
 export default function SignupPage() {
-  //   const [failedMessage, setFailedMessage] = useState("");
+  const [failedMessage, setFailedMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const auth = getAuth();
@@ -28,6 +28,13 @@ export default function SignupPage() {
       console.log(res.user);
     } catch (error) {
       console.error(error);
+      if (password.length < 4) {
+        setFailedMessage("Password too short.");
+      } else if (error.code === "auth/email-already-in-use") {
+        setFailedMessage("Email already in use.");
+      } else {
+        setFailedMessage("An error occured please try again.");
+      }
     }
   };
 
@@ -53,7 +60,7 @@ export default function SignupPage() {
             type='password'
             placeholder='Password'
           />
-          <p className='text-red-500 font-light text-xs'>{}</p>
+          <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
           <div className='w-full flex flex-col mt-10'>
             <button
               onClick={handleSignUp}

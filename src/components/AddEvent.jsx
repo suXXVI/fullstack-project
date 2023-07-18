@@ -66,21 +66,31 @@ export default function AddEvent() {
         <div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10'>
           <form className='flex flex-col gap-4 w-full'>
             <p className='text-stone-600'>Event Title:</p>
-            <input
+            <select
               onChange={handleSetTitle}
               value={title}
-              className='h-9 py-3 px-2 border-2'
+              className='h-10 px-2 border-2'
               type='text'
               placeholder='Title'
-            />
+              required
+            >
+              <option>....</option>
+              <option>Meeting</option>
+              <option>Interview</option>
+            </select>
+
             <p className='text-stone-600'>Event Type:</p>
-            <input
+            <select
               onChange={handleSetType}
               value={type}
-              className='h-9 py-3 px-2 border-2'
+              className='h-10 px-2 border-2'
               type='text'
-              placeholder='Type'
-            />
+              required
+            >
+              <option>....</option>
+              <option>One-on-one</option>
+              <option>Group</option>
+            </select>
 
             <p className='text-stone-600'>Days available:</p>
             <input
