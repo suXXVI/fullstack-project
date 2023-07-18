@@ -9,8 +9,10 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
 
-  if (!currentUser) navigate("/login");
   const handleLogout = () => auth.signOut();
+  if (!currentUser) {
+    navigate("*");
+  }
 
   return (
     <nav className='border-gray-200 bg-stone-200 shadow-lg shadow-gray-300'>

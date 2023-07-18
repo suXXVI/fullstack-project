@@ -1,8 +1,4 @@
-import {
-  //   createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "./AuthProvider";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const auth = getAuth();
   const { currentUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,7 +42,7 @@ export default function LoginPage() {
           Streamline your schedule, save time, achieve more
         </p>
       </div>
-      <div className='flex flex-col max-w-md h-2/5 w-72 border border-stone-300 shadow-lg shadow-stone-400  p-10 rounded-lg'>
+      <div className='flex flex-col max-w-md h-96 w-72 border border-stone-300 shadow-lg shadow-stone-400  p-10 rounded-lg'>
         <form className='flex flex-col gap-4'>
           <input
             onChange={(e) => setUsername(e.target.value)}
@@ -64,13 +61,13 @@ export default function LoginPage() {
             <button
               onClick={handleLogin}
               type='button'
-              className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 font-semibold'
+              className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white text-sm'
             >
               Login
             </button>
             <button
               type='button'
-              className='flex flex-row justify-center items-center gap-4 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm px-5 py-2.5 mb-4 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 import logo from "../assets/logo-no-background.png font-semibold'
+              className='flex-row gap-4 whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white import logo from "../assets/logo-no-background.png text-sm'
             >
               <img className='h-6' src={glogo} alt='' />
               Login with Google

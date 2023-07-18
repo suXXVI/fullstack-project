@@ -1,13 +1,8 @@
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  //   signInWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { AuthContext } from "./AuthProvider";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo-no-background.png";
-// import glogo from "../assets/google-logo.png";
 
 export default function SignupPage() {
   //   const [failedMessage, setFailedMessage] = useState("");
@@ -44,7 +39,7 @@ export default function SignupPage() {
           Streamline your schedule, save time, achieve more
         </p>
       </div>
-      <div className='flex flex-col max-w-md h-2/5 w-72 border border-stone-300 shadow-lg shadow-stone-400  p-10 rounded-lg'>
+      <div className='flex flex-col max-w-md h-96 w-72 border border-stone-300 shadow-lg shadow-stone-400  p-10 rounded-lg'>
         <form className='flex flex-col gap-4'>
           <input
             onChange={(e) => setUsername(e.target.value)}
@@ -63,15 +58,27 @@ export default function SignupPage() {
             <button
               onClick={handleSignUp}
               type='button'
-              className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 rounded-lg text-sm px-5 py-2.5 mb-4 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 font-semibold'
+              className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white text-sm'
             >
               Sign Up
             </button>
+            <p className='flex flex-row mb-3 gap-1 text-xs text-stone-400'>
+              Already have an account?
+              <span>
+                <a
+                  onClick={() => navigate("/login")}
+                  className='text-blue-500'
+                  href=''
+                >
+                  Login
+                </a>
+              </span>
+            </p>
             <p className='text-xs text-stone-400'>
               By singing up, you agree to the{" "}
               <span className='text-blue-500'>terms of Serivce</span> and{" "}
               <span className='text-blue-500'>Privacy Policy</span>, including
-              Cookie Use. Learn More.
+              Cookie Use. <span className='text-blue-500'>Learn more.</span>
             </p>
           </div>
         </form>
