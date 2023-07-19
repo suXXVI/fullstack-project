@@ -4,8 +4,11 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo-no-background.png";
 import useLocalStorage from "use-local-storage";
+import { resetEvents } from "../reducers/eventSlice";
+import { useDispatch } from "react-redux";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
   const auth = getAuth();
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
@@ -16,20 +19,23 @@ export default function Navbar() {
   const handleLogout = () => {
     auth.signOut();
     setUserId(null);
+    dispatch(resetEvents());
   };
   if (!currentUser && userId == null) {
     navigate("*");
   }
 
   return (
-    <nav className='border-gray-200 bg-stone-200 shadow-lg shadow-gray-300'>
+    <nav className='border-gray-200 border-b'>
       <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
         <a href='#' className='flex items-center'>
-          <img src={logo} className='h-8 mr-3' alt='Flowbite Logo' />
+          <img src={logo} className='h-8 ml-3' alt='Flowbite Logo' />
           <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'></span>
         </a>
         <div className='flex flex-row justify-center items-center gap-5'>
-          <p className='hidden sm:flex'>{cleanedEmail}</p>
+          <p className='font-semibold text-gray-800 hidden sm:flex'>
+            {cleanedEmail}
+          </p>
           <button
             onClick={handleLogout}
             type='button'

@@ -1,16 +1,27 @@
 import Navbar from "./Navbar";
 import EventCard from "./EventCard";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const isLoading = useSelector((state) => state.events.isLoading);
 
   return (
     <div>
       <Navbar />
       <div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
         <div className='flex justify-between items-center w-full'>
-          <p className='text-2xl font-extralight'>Events</p>
+          {isLoading ? (
+            <div className='lds-ellipsis'>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          ) : (
+            <p className='text-2xl text-gray-800 font-extralight'>Events</p>
+          )}
           <button
             onClick={() => navigate("/addevent")}
             type='button'

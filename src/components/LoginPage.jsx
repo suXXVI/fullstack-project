@@ -4,6 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo-no-background.png";
 import glogo from "../assets/google-logo.png";
+import { useSelector } from "react-redux";
 
 export default function LoginPage() {
   const [failedMessage, setFailedMessage] = useState("");
@@ -12,6 +13,7 @@ export default function LoginPage() {
   const auth = getAuth();
   const { currentUser } = useContext(AuthContext);
   const userId = localStorage.getItem("userId");
+  const isLoading = useSelector((state) => state.events.isLoading);
 
   const navigate = useNavigate();
 
@@ -61,6 +63,7 @@ export default function LoginPage() {
             type='password'
             placeholder='Password'
           />
+          {isLoading ? <p>Logging in...</p> : <p></p>}
           <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
           <div className='w-full flex flex-col mt-10'>
             <button

@@ -6,6 +6,7 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import Dashboard from "./components/Dashboard";
 import AddEvent from "./components/AddEvent";
+import EditEvent from "./components/EditEvent";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path='/signup' element={<SignupPage />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/addevent' element={<AddEvent />} />
+            <Route path='/editevent/:id' element={<EditEvent />} />
           </Routes>
         </BrowserRouter>
       </Provider>

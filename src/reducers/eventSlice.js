@@ -44,28 +44,94 @@ export const deleteEvent = createAsyncThunk(
   }
 );
 
+//Thunk to edit an event
+export const editEvent = createAsyncThunk(
+  "events/editEvent",
+  async ({ eventId, eventData }) => {
+    try {
+      const response = await axios.put(
+        `${BASE_URL}/events/${eventId}`,
+        eventData
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+);
+
+const RESET_EVENTS = "events/reset";
+
 // Create events slice
 const eventsSlice = createSlice({
   name: "events",
   initialState: {
     events: [],
+    isLoading: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(fetchEventsByUser.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchEventsByUser.fulfilled, (state, action) => {
+      state.isLoading = false;
       state.events = action.payload;
     });
+    builder.addCase(fetchEventsByUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(addNewEvent.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(addNewEvent.fulfilled, (state, action) => {
-      // state.events = [action.payload, ...state.events];
-      state.events = [...state.events, action.payload];
+      state.isLoading = false;
+      state.events = [action.payload, ...state.events];
+    });
+    builder.addCase(addNewEvent.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(deleteEvent.pending, (state) => {
+      state.isLoading = true;
     });
     builder.addCase(deleteEvent.fulfilled, (state, action) => {
+      state.isLoading = false;
       state.events = state.events.filter(
         (event) => event.id !== action.payload
       );
+    });
+    builder.addCase(deleteEvent.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(editEvent.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(editEvent.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.events = state.events.map((event) =>
+        event.id === action.payload.id ? action.payload : event
+      );
+    });
+    builder.addCase(editEvent.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(RESET_EVENTS, (state) => {
+      state.events = [];
+      state.isLoading = false;
+      state.error = null;
     });
   },
 });
 
 export default eventsSlice.reducer;
+export const resetEvents = () => {
+  return {
+    type: RESET_EVENTS,
+  };
+};

@@ -3,39 +3,50 @@ import { useSelector } from "react-redux";
 import { fetchEventsByUser } from "../reducers/eventSlice";
 import { useDispatch } from "react-redux";
 import { deleteEvent } from "../reducers/eventSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function EventCard() {
   const events = useSelector((state) => state.events.events);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     dispatch(fetchEventsByUser(userId));
   }, [userId, dispatch]);
 
+  // Delete button
   const handleDeleteEvent = (eventId) => {
     dispatch(deleteEvent(eventId));
   };
 
+  // Edit button
+  const handleEditEvent = (eventId) => {
+    console.log(eventId);
+    navigate(`/editevent/${eventId}`);
+  };
+
   return (
     <div className='flex flex-wrap gap-4'>
-      <div className='loader'></div>
       {events.map((event) => (
         <div
           key={event.id}
           className='w-80 max-w-96 p-6  border border-gray-200 rounded-lg sbg-stone-200 shadow-md shadow-slate-300'
         >
-          <a href='#' className='flex items-center justify-between'>
-            <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900'>
+          <p href='#' className='flex items-center justify-between'>
+            <span className='mb-2 text-2xl font-bold tracking-tight text-gray-800'>
               {event.title}
-            </h5>
-            <a className='text-xs' onClick={() => handleDeleteEvent(event.id)}>
+            </span>
+            <a
+              className='text-xs text-gray-400'
+              onClick={() => handleDeleteEvent(event.id)}
+            >
               Delete
             </a>
-          </a>
-          <p className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
-            {event.type}
           </p>
+          <p>{event.time}</p>
+          <p className='text-xs text-gray-400'>{event.days}</p>
+          <p className='mb-3 font-normal text-gray-400'>{event.type}</p>
 
           <div className='flex gap-2'>
             <a
@@ -45,6 +56,7 @@ export default function EventCard() {
               <span className='relative text-sm'>Open</span>
             </a>
             <a
+              onClick={() => handleEditEvent(event.id)}
               href='#_'
               className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white'
             >
