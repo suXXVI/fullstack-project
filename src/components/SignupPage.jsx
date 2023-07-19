@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { AuthContext } from "./AuthProvider";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo-no-background.png";
+import logo from "../assets/applogo.png";
 
 export default function SignupPage() {
   const [failedMessage, setFailedMessage] = useState("");
@@ -65,11 +65,11 @@ export default function SignupPage() {
             <button
               onClick={handleSignUp}
               type='button'
-              className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white text-sm'
+              className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-red-900 active:shadow-none shadow-lg bg-gradient-to-tr from-red-600 to-red-500 border-red-700 text-white text-sm'
             >
               Sign Up
             </button>
-            <p className='flex flex-row mb-3 gap-1 text-xs text-stone-400'>
+            <p className='flex flex-row mb-3 mt-2 gap-1 text-xs text-stone-400'>
               Already have an account?
               <span>
                 <a

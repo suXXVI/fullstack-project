@@ -1,10 +1,15 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { AuthContext } from "./AuthProvider";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo-no-background.png";
+import logo from "../assets/applogo.png";
 import glogo from "../assets/google-logo.png";
-import { useSelector } from "react-redux";
 
 export default function LoginPage() {
   const [failedMessage, setFailedMessage] = useState("");
@@ -13,9 +18,10 @@ export default function LoginPage() {
   const auth = getAuth();
   const { currentUser } = useContext(AuthContext);
   const userId = localStorage.getItem("userId");
-  const isLoading = useSelector((state) => state.events.isLoading);
 
   const navigate = useNavigate();
+
+  const googleProvider = new GoogleAuthProvider();
 
   useEffect(() => {
     if (currentUser) navigate("/dashboard");
@@ -24,6 +30,26 @@ export default function LoginPage() {
       navigate("*");
     }
   }, [currentUser, userId, navigate]);
+
+  // reset password
+  const handlePasswordReset = async (e) => {
+    e.preventDefault();
+    try {
+      await sendPasswordResetEmail(auth, username);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Functions for logging in
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -63,24 +89,24 @@ export default function LoginPage() {
             type='password'
             placeholder='Password'
           />
-          {isLoading ? <p>Logging in...</p> : <p></p>}
           <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
           <div className='w-full flex flex-col mt-10'>
             <button
               onClick={handleLogin}
               type='button'
-              className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white text-sm'
+              className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-red-900 active:shadow-none shadow-lg bg-gradient-to-tr from-red-600 to-red-500 border-red-700 text-white text-sm'
             >
               Login
             </button>
             <button
+              onClick={handleGoogleLogin}
               type='button'
-              className='flex-row gap-4 whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-purple-600 active:shadow-none shadow-lg bg-gradient-to-tr from-purple-600 to-purple-500 border-purple-700 text-white import logo from "../assets/logo-no-background.png text-sm'
+              className='flex-row gap-4 whitespace-nowrap rounded relative inline-flex group items-center justify-center px-4 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-red-900 active:shadow-none shadow-lg bg-gradient-to-tr from-red-600 to-red-500 border-red-700 text-white import logo from "../assets/logo-no-background.png text-sm'
             >
               <img className='h-6' src={glogo} alt='' />
               Login with Google
             </button>
-            <p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400'>
+            <p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-10'>
               Create an account
               <span>
                 <a

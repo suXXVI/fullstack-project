@@ -5,8 +5,8 @@ import store from "../store";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import Dashboard from "./components/Dashboard";
-import AddEvent from "./components/AddEvent";
-import EditEvent from "./components/EditEvent";
+import AddAppointment from "./components/AddAppointment";
+import EditAppointment from "./components/EditAppointment";
 
 function App() {
   return (
@@ -17,8 +17,8 @@ function App() {
             <Route path='*' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
             <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/addevent' element={<AddEvent />} />
-            <Route path='/editevent/:id' element={<EditEvent />} />
+            <Route path='/add' element={<AddAppointment />} />
+            <Route path='/edit/:id' element={<EditAppointment />} />
           </Routes>
         </BrowserRouter>
       </Provider>

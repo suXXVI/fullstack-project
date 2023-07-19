@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo-no-background.png";
+import logo from "../assets/applogo.png";
 import useLocalStorage from "use-local-storage";
-import { resetEvents } from "../reducers/eventSlice";
+import { resetAppointments } from "../reducers/appointmentSlice";
 import { useDispatch } from "react-redux";
 
 export default function Navbar() {
@@ -19,7 +19,7 @@ export default function Navbar() {
   const handleLogout = () => {
     auth.signOut();
     setUserId(null);
-    dispatch(resetEvents());
+    dispatch(resetAppointments());
   };
   if (!currentUser && userId == null) {
     navigate("*");
@@ -39,7 +39,7 @@ export default function Navbar() {
           <button
             onClick={handleLogout}
             type='button'
-            className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900'
+            className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:red:ring-purple-900'
           >
             Logout
           </button>

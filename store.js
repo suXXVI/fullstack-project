@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import eventReducer from "./src/reducers/eventSlice";
+import appointmentReducer from "./src/reducers/appointmentSlice";
 
 export default configureStore({
   reducer: {
-    events: eventReducer,
+    appointments: appointmentReducer,
   },
 });

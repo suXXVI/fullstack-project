@@ -6,9 +6,9 @@ const BASE_URL =
 
 // Thunk to get user's post
 export const fetchEventsByUser = createAsyncThunk(
-  "posts/fetchByUser",
+  "appointments/fetchByUser",
   async (userId) => {
-    const response = await fetch(`${BASE_URL}/events/username/${userId}`);
+    const response = await fetch(`${BASE_URL}/appointments/username/${userId}`);
     const data = await response.json();
     console.log(userId);
     console.log(data);
@@ -18,10 +18,13 @@ export const fetchEventsByUser = createAsyncThunk(
 
 // Thunk to add a new event
 export const addNewEvent = createAsyncThunk(
-  "events/addNewEvent",
-  async (eventData) => {
+  "appointments/addNewEvent",
+  async (appointmentData) => {
     try {
-      const response = await axios.post(`${BASE_URL}/events`, eventData);
+      const response = await axios.post(
+        `${BASE_URL}/appointments`,
+        appointmentData
+      );
       return response.data;
     } catch (error) {
       console.error(error);
@@ -32,11 +35,11 @@ export const addNewEvent = createAsyncThunk(
 
 // Thunk to delete an event
 export const deleteEvent = createAsyncThunk(
-  "events/deleteEvent",
-  async (eventId) => {
+  "appointments/deleteEvent",
+  async (appointmentId) => {
     try {
-      await axios.delete(`${BASE_URL}/events/${eventId}`);
-      return eventId;
+      await axios.delete(`${BASE_URL}/appointments/${appointmentId}`);
+      return appointmentId;
     } catch (error) {
       console.error(error);
       throw error;
@@ -45,13 +48,13 @@ export const deleteEvent = createAsyncThunk(
 );
 
 //Thunk to edit an event
-export const editEvent = createAsyncThunk(
-  "events/editEvent",
-  async ({ eventId, eventData }) => {
+export const editAppointment = createAsyncThunk(
+  "appointments/editEvent",
+  async ({ appointmentId, appointmentData }) => {
     try {
       const response = await axios.put(
-        `${BASE_URL}/events/${eventId}`,
-        eventData
+        `${BASE_URL}/appointments/${appointmentId}`,
+        appointmentData
       );
       return response.data;
     } catch (error) {
@@ -61,13 +64,13 @@ export const editEvent = createAsyncThunk(
   }
 );
 
-const RESET_EVENTS = "events/reset";
+const RESET_APPOINTMENTS = "appointments/reset";
 
 // Create events slice
 const eventsSlice = createSlice({
-  name: "events",
+  name: "appointments",
   initialState: {
-    events: [],
+    appointments: [],
     isLoading: false,
     error: null,
   },
@@ -78,7 +81,7 @@ const eventsSlice = createSlice({
     });
     builder.addCase(fetchEventsByUser.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.events = action.payload;
+      state.appointments = action.payload;
     });
     builder.addCase(fetchEventsByUser.rejected, (state, action) => {
       state.isLoading = false;
@@ -89,7 +92,7 @@ const eventsSlice = createSlice({
     });
     builder.addCase(addNewEvent.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.events = [action.payload, ...state.events];
+      state.appointments = [action.payload, ...state.appointments];
     });
     builder.addCase(addNewEvent.rejected, (state, action) => {
       state.isLoading = false;
@@ -100,29 +103,29 @@ const eventsSlice = createSlice({
     });
     builder.addCase(deleteEvent.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.events = state.events.filter(
-        (event) => event.id !== action.payload
+      state.appointments = state.appointments.filter(
+        (appointment) => appointment.id !== action.payload
       );
     });
     builder.addCase(deleteEvent.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
-    builder.addCase(editEvent.pending, (state) => {
+    builder.addCase(editAppointment.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(editEvent.fulfilled, (state, action) => {
+    builder.addCase(editAppointment.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.events = state.events.map((event) =>
-        event.id === action.payload.id ? action.payload : event
+      state.appointments = state.appointments.map((appointment) =>
+        appointment.id === action.payload.id ? action.payload : appointment
       );
     });
-    builder.addCase(editEvent.rejected, (state, action) => {
+    builder.addCase(editAppointment.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
-    builder.addCase(RESET_EVENTS, (state) => {
-      state.events = [];
+    builder.addCase(RESET_APPOINTMENTS, (state) => {
+      state.appointments = [];
       state.isLoading = false;
       state.error = null;
     });
@@ -130,8 +133,8 @@ const eventsSlice = createSlice({
 });
 
 export default eventsSlice.reducer;
-export const resetEvents = () => {
+export const resetAppointments = () => {
   return {
-    type: RESET_EVENTS,
+    type: RESET_APPOINTMENTS,
   };
 };
