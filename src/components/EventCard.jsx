@@ -1,27 +1,34 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { fetchEventsByUser } from "../reducers/appointmentSlice";
+import { fetchAppointmentsByUser } from "../reducers/appointmentSlice";
 import { useDispatch } from "react-redux";
-import { deleteEvent } from "../reducers/appointmentSlice";
+import { deleteAppointment } from "../reducers/appointmentSlice";
 import { useNavigate } from "react-router-dom";
+import { fetchAllAppointments } from "../reducers/appointmentSlice";
 
 export default function EventCard() {
   const appointments = useSelector((state) => state.appointments.appointments);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
+  const isAdmin = useSelector((state) => state.appointments.isAdmin);
 
   useEffect(() => {
-    dispatch(fetchEventsByUser(userId));
-  }, [userId, dispatch]);
+    if (isAdmin === true) {
+      dispatch(fetchAllAppointments());
+      console.log("admin loggin in");
+    } else {
+      dispatch(fetchAppointmentsByUser(userId));
+    }
+  }, [userId, isAdmin, dispatch]);
 
   // Delete button
-  const handleDeleteEvent = (appointmentId) => {
-    dispatch(deleteEvent(appointmentId));
+  const handleDelete = (appointmentId) => {
+    dispatch(deleteAppointment(appointmentId));
   };
 
   // Edit button
-  const handleEditEvent = (appointmentId) => {
+  const handleEdit = (appointmentId) => {
     console.log(appointmentId);
     navigate(`/edit/${appointmentId}`);
   };
@@ -37,12 +44,21 @@ export default function EventCard() {
             <span className='mb-2 text-2xl font-bold tracking-tight text-gray-800'>
               {appointment.title}
             </span>
-            <a
-              className='text-xs text-gray-400 cursor-pointer'
-              onClick={() => handleDeleteEvent(appointment.id)}
-            >
-              Delete
-            </a>
+            {isAdmin ? (
+              <a
+                className='text-xs text-gray-400 cursor-pointer'
+                onClick={() => handleDelete(appointment.id)}
+              >
+                Complete
+              </a>
+            ) : (
+              <a
+                className='text-xs text-gray-400 cursor-pointer'
+                onClick={() => handleDelete(appointment.id)}
+              >
+                Delete
+              </a>
+            )}
           </p>
           <p>{appointment.time}</p>
           <p className='text-xs text-gray-400'>{appointment.date}</p>
@@ -50,15 +66,18 @@ export default function EventCard() {
             {appointment.content}
           </p>
 
-          <div className='flex gap-2'>
-            <a
-              onClick={() => handleEditEvent(appointment.id)}
-              href='#_'
-              className='w-full whitespace-nowrap rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-red-600 active:shadow-none shadow-lg bg-gradient-to-tr from-red-600 to-red-500 border-red-700 text-white'
-            >
-              <span className='relative text-sm'>Edit</span>
-            </a>
-          </div>
+          {isAdmin ? (
+            <p></p>
+          ) : (
+            <div className='flex gap-2'>
+              <button
+                onClick={() => handleEdit(appointment.id)}
+                className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
+              >
+                Edit
+              </button>
+            </div>
+          )}
         </div>
       ))}
     </div>

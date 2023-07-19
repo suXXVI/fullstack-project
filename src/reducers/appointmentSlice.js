@@ -4,8 +4,19 @@ import axios from "axios";
 const BASE_URL =
   "https://booking-system-api-suwanki.sigma-school-full-stack.repl.co";
 
+// for admin only
+export const fetchAllAppointments = createAsyncThunk(
+  "appointments/fetchAll",
+  async () => {
+    const response = await fetch(`${BASE_URL}/appointments`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+);
+
 // Thunk to get user's post
-export const fetchEventsByUser = createAsyncThunk(
+export const fetchAppointmentsByUser = createAsyncThunk(
   "appointments/fetchByUser",
   async (userId) => {
     const response = await fetch(`${BASE_URL}/appointments/username/${userId}`);
@@ -34,7 +45,7 @@ export const addNewEvent = createAsyncThunk(
 );
 
 // Thunk to delete an event
-export const deleteEvent = createAsyncThunk(
+export const deleteAppointment = createAsyncThunk(
   "appointments/deleteEvent",
   async (appointmentId) => {
     try {
@@ -73,66 +84,84 @@ const eventsSlice = createSlice({
     appointments: [],
     isLoading: false,
     error: null,
+    isAdmin: false,
   },
-  reducers: {},
+  reducers: {
+    setAdmin: (state) => {
+      state.isAdmin = true;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(fetchEventsByUser.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(fetchEventsByUser.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.appointments = action.payload;
-    });
-    builder.addCase(fetchEventsByUser.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    });
-    builder.addCase(addNewEvent.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(addNewEvent.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.appointments = [action.payload, ...state.appointments];
-    });
-    builder.addCase(addNewEvent.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    });
-    builder.addCase(deleteEvent.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(deleteEvent.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.appointments = state.appointments.filter(
-        (appointment) => appointment.id !== action.payload
-      );
-    });
-    builder.addCase(deleteEvent.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    });
-    builder.addCase(editAppointment.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(editAppointment.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.appointments = state.appointments.map((appointment) =>
-        appointment.id === action.payload.id ? action.payload : appointment
-      );
-    });
-    builder.addCase(editAppointment.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    });
-    builder.addCase(RESET_APPOINTMENTS, (state) => {
-      state.appointments = [];
-      state.isLoading = false;
-      state.error = null;
-    });
+    builder
+      .addCase(fetchAppointmentsByUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAppointmentsByUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.appointments = action.payload;
+      })
+      .addCase(fetchAppointmentsByUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchAllAppointments.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAllAppointments.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.appointments = action.payload;
+      })
+      .addCase(fetchAllAppointments.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(addNewEvent.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addNewEvent.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.appointments = [action.payload, ...state.appointments];
+      })
+      .addCase(addNewEvent.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteAppointment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteAppointment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.appointments = state.appointments.filter(
+          (appointment) => appointment.id !== action.payload
+        );
+      })
+      .addCase(deleteAppointment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(editAppointment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editAppointment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.appointments = state.appointments.map((appointment) =>
+          appointment.id === action.payload.id ? action.payload : appointment
+        );
+      })
+      .addCase(editAppointment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(RESET_APPOINTMENTS, (state) => {
+        state.appointments = [];
+        state.isLoading = false;
+        state.error = null;
+      });
   },
 });
 
 export default eventsSlice.reducer;
+export const { setAdmin } = eventsSlice.actions;
 export const resetAppointments = () => {
   return {
     type: RESET_APPOINTMENTS,

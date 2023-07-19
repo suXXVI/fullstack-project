@@ -86,7 +86,7 @@ export default function EditEvent() {
           <button
             onClick={() => navigate("/dashboard")}
             type='button'
-            className='text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'
+            className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
           >
             Go back
           </button>
@@ -103,9 +103,11 @@ export default function EditEvent() {
               required
             >
               <option>....</option>
+              <option>Repair</option>
               <option>Urgent</option>
               <option>Check Up</option>
-              <option>Follow Up</option>
+              <option>Basic Setup</option>
+              <option>Full Setup</option>
             </select>
 
             <p className='text-stone-600'>Event Type:</p>
@@ -153,7 +155,7 @@ export default function EditEvent() {
             <button
               onClick={handleAddEvent}
               type='button'
-              className='whitespace-nowrap rounded relative inline-flex group items-center justify-center px-3.5 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-red-600 active:shadow-none shadow-lg bg-gradient-to-tr from-red-600 to-red-500 border-red-700 text-white'
+              className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
             >
               Save Changes
             </button>

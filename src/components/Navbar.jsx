@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/applogo.png";
+import logo from "../assets/fflogo.png";
 import useLocalStorage from "use-local-storage";
 import { resetAppointments } from "../reducers/appointmentSlice";
 import { useDispatch } from "react-redux";
@@ -38,10 +38,9 @@ export default function Navbar() {
           </p>
           <button
             onClick={handleLogout}
-            type='button'
-            className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:red:ring-purple-900'
+            className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
           >
-            Logout
+            Log Out
           </button>
         </div>
       </div>
