@@ -28,7 +28,7 @@ export default function Dashboard() {
             onClick={() => navigate("/add")}
             className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
           >
-            + Create Event
+            + Book Appointment
           </button>
         </div>
 

@@ -76,7 +76,7 @@ export default function AddEvent() {
         </div>
         <div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10'>
           <form className='flex flex-col gap-4 w-full'>
-            <p className='text-stone-600'>Event Title:</p>
+            <p className='text-stone-600'>Appointment:</p>
             <select
               onChange={handleSetTitle}
               value={title}
@@ -93,7 +93,7 @@ export default function AddEvent() {
               <option>Full Setup</option>
             </select>
 
-            <p className='text-stone-600'>Event Type:</p>
+            <p className='text-stone-600'>Description:</p>
             <input
               onChange={handleSetType}
               value={content}
@@ -103,7 +103,7 @@ export default function AddEvent() {
               placeholder='Description'
             />
 
-            <p className='text-stone-600'>Days available:</p>
+            <p className='text-stone-600'>Date:</p>
             <input
               onChange={handleSetDays}
               value={date}
@@ -111,7 +111,7 @@ export default function AddEvent() {
               type='text'
               placeholder='mm-dd-yyy'
             />
-            <p className='text-stone-600'>Timing:</p>
+            <p className='text-stone-600'>Time:</p>
             <input
               onChange={handleSetTime}
               value={time}
@@ -140,7 +140,7 @@ export default function AddEvent() {
               type='button'
               className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
             >
-              Save Changes
+              Add
             </button>
           </form>
         </div>

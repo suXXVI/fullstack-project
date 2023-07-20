@@ -93,7 +93,7 @@ export default function EditEvent() {
         </div>
         <div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10'>
           <form className='flex flex-col gap-4 w-full'>
-            <p className='text-stone-600'>Event Title:</p>
+            <p className='text-stone-600'>Appointment:</p>
             <select
               onChange={handleSetTitle}
               value={title}
@@ -110,7 +110,7 @@ export default function EditEvent() {
               <option>Full Setup</option>
             </select>
 
-            <p className='text-stone-600'>Event Type:</p>
+            <p className='text-stone-600'>Description:</p>
             <input
               onChange={handleSetType}
               value={content}
@@ -120,7 +120,7 @@ export default function EditEvent() {
               placeholder='Description'
             />
 
-            <p className='text-stone-600'>Days available:</p>
+            <p className='text-stone-600'>Date:</p>
             <input
               onChange={handleSetDays}
               value={date}
@@ -128,7 +128,7 @@ export default function EditEvent() {
               type='text'
               placeholder='MM-DD-YYYY'
             />
-            <p className='text-stone-600'>Timing:</p>
+            <p className='text-stone-600'>Time:</p>
             <input
               onChange={handleSetTime}
               value={time}

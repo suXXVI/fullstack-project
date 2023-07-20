@@ -155,6 +155,7 @@ const eventsSlice = createSlice({
       .addCase(RESET_APPOINTMENTS, (state) => {
         state.appointments = [];
         state.isLoading = false;
+        state.isAdmin = false;
         state.error = null;
       });
   },

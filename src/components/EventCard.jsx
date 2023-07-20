@@ -40,10 +40,10 @@ export default function EventCard() {
           key={appointment.id}
           className='w-80 max-w-96 p-6  border border-gray-200 rounded-lg sbg-stone-200 shadow-md shadow-slate-300'
         >
-          <p href='#' className='flex items-center justify-between'>
-            <span className='mb-2 text-2xl font-bold tracking-tight text-gray-800'>
+          <div className='flex items-center justify-between'>
+            <h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-800'>
               {appointment.title}
-            </span>
+            </h2>
             {isAdmin ? (
               <a
                 className='text-xs text-gray-400 cursor-pointer'
@@ -59,12 +59,16 @@ export default function EventCard() {
                 Delete
               </a>
             )}
-          </p>
-          <p>{appointment.time}</p>
-          <p className='text-xs text-gray-400'>{appointment.date}</p>
-          <p className='mb-3 font-normal text-gray-400'>
-            {appointment.content}
-          </p>
+          </div>
+          <div className='mb-5'>
+            <p className='font-semibold'>
+              {appointment.time} | {appointment.date}
+            </p>
+            <p className='font-normal text-gray-500'>{appointment.content}</p>
+            <p className='text-xs text-gray-500'>
+              {appointment.email} | {appointment.phone}
+            </p>
+          </div>
 
           {isAdmin ? (
             <p></p>
