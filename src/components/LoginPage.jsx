@@ -3,7 +3,6 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  sendPasswordResetEmail,
 } from "firebase/auth";
 import { AuthContext } from "./AuthProvider";
 import { useState, useContext, useEffect } from "react";
@@ -32,16 +31,6 @@ export default function LoginPage() {
       navigate("*");
     }
   }, [currentUser, userId, navigate]);
-
-  // reset password
-  const handlePasswordReset = async (e) => {
-    e.preventDefault();
-    try {
-      await sendPasswordResetEmail(auth, username);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   // Functions for logging in
   const handleGoogleLogin = async (e) => {

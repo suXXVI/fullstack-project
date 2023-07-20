@@ -7,11 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { fetchAllAppointments } from "../reducers/appointmentSlice";
 
 export default function EventCard() {
-  const appointments = useSelector((state) => state.appointments.appointments);
+  // const appointments = useSelector((state) => state.appointments.appointments);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const isAdmin = useSelector((state) => state.appointments.isAdmin);
+  const allAppointments = useSelector(
+    (state) => state.appointments.appointments
+  );
 
   useEffect(() => {
     if (isAdmin === true) {
@@ -33,9 +36,13 @@ export default function EventCard() {
     navigate(`/edit/${appointmentId}`);
   };
 
+  const userAppointments = allAppointments.filter(
+    (appointment) => appointment.username === userId
+  );
+
   return (
     <div className='flex flex-wrap gap-4'>
-      {appointments.map((appointment) => (
+      {userAppointments.map((appointment) => (
         <div
           key={appointment.id}
           className='w-80 max-w-96 p-6  border border-gray-200 rounded-lg sbg-stone-200 shadow-md shadow-slate-300'

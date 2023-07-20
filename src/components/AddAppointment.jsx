@@ -1,8 +1,11 @@
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewAppointment } from "../reducers/appointmentSlice";
+import {
+  addNewAppointment,
+  fetchAllAppointments,
+} from "../reducers/appointmentSlice";
 
 export default function AddEvent() {
   const dispatch = useDispatch();
@@ -19,6 +22,10 @@ export default function AddEvent() {
   const allAppointments = useSelector(
     (state) => state.appointments.appointments
   );
+
+  useEffect(() => {
+    dispatch(fetchAllAppointments());
+  }, [dispatch]);
 
   const handleAddAppointment = async () => {
     const appointmentData = {
