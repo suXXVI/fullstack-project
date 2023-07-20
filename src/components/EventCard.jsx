@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchAllAppointments } from "../reducers/appointmentSlice";
 
 export default function EventCard() {
-  // const appointments = useSelector((state) => state.appointments.appointments);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
@@ -16,6 +15,7 @@ export default function EventCard() {
     (state) => state.appointments.appointments
   );
 
+  //checking to see if admin is logged in
   useEffect(() => {
     if (isAdmin === true) {
       dispatch(fetchAllAppointments());
@@ -36,13 +36,14 @@ export default function EventCard() {
     navigate(`/edit/${appointmentId}`);
   };
 
-  const userAppointments = allAppointments.filter(
-    (appointment) => appointment.username === userId
-  );
+  // Rendering appointments conditionally
+  const filteredAppointments = isAdmin
+    ? allAppointments // Render all appointments for admin
+    : allAppointments.filter((appointment) => appointment.username === userId);
 
   return (
     <div className='flex flex-wrap gap-4'>
-      {userAppointments.map((appointment) => (
+      {filteredAppointments.map((appointment) => (
         <div
           key={appointment.id}
           className='w-80 max-w-96 p-6  border border-gray-200 rounded-lg sbg-stone-200 shadow-md shadow-slate-300'
