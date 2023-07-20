@@ -65,9 +65,18 @@ export default function EventCard() {
               {appointment.time} | {appointment.date}
             </p>
             <p className='font-normal text-gray-500'>{appointment.content}</p>
-            <p className='text-xs text-gray-500'>
-              {appointment.email} | {appointment.phone}
-            </p>
+            {isAdmin ? (
+              <a
+                href={`mailto: ${appointment.email}`}
+                className='text-xs text-gray-500'
+              >
+                {appointment.email} | {appointment.phone}
+              </a>
+            ) : (
+              <a className='text-xs text-gray-500'>
+                {appointment.email} | {appointment.phone}
+              </a>
+            )}
           </div>
 
           {isAdmin ? (
