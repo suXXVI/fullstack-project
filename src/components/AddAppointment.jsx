@@ -23,6 +23,7 @@ export default function AddEvent() {
     (state) => state.appointments.appointments
   );
 
+  //getting all appointments from backend to check for data and time
   useEffect(() => {
     dispatch(fetchAllAppointments());
   }, [dispatch]);
@@ -38,6 +39,7 @@ export default function AddEvent() {
       username: userId,
     };
 
+    // checking if date and time is already booked
     const isDateAvailable = allAppointments.some(
       (appointment) => appointment.date === date && appointment.time === time
     );
