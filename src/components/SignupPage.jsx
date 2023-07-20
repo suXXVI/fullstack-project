@@ -50,13 +50,13 @@ export default function SignupPage() {
         <form className='flex flex-col gap-4'>
           <input
             onChange={(e) => setUsername(e.target.value)}
-            className='h-9 py-3 px-2 border-2 rounded-md'
+            className='h-9 py-3 px-2 border-2 rounded-md focus:outline-none'
             type='text'
             placeholder='Email or Username'
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
-            className='h-9 p-3 border-2 rounded-md'
+            className='h-9 p-3 border-2 rounded-md focus:outline-none'
             type='password'
             placeholder='Password'
           />

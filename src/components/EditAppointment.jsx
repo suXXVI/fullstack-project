@@ -114,7 +114,7 @@ export default function EditEvent() {
             <input
               onChange={handleSetType}
               value={content}
-              className='h-10 px-2 border-2'
+              className='h-10 px-2 border-2 focus:outline-none'
               type='text'
               required
               placeholder='Description'
@@ -124,7 +124,7 @@ export default function EditEvent() {
             <input
               onChange={handleSetDays}
               value={date}
-              className='h-9 py-3 px-2 border-2'
+              className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='text'
               placeholder='MM-DD-YYYY'
             />
@@ -132,7 +132,7 @@ export default function EditEvent() {
             <input
               onChange={handleSetTime}
               value={time}
-              className='h-9 py-3 px-2 border-2'
+              className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='text'
               placeholder='2:00PM'
             />
@@ -140,7 +140,7 @@ export default function EditEvent() {
             <input
               onChange={handleSetEmail}
               value={email}
-              className='h-9 py-3 px-2 border-2'
+              className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='text'
               placeholder='example@mail.com'
             />
@@ -148,7 +148,7 @@ export default function EditEvent() {
             <input
               onChange={handleSetPhone}
               value={phone}
-              className='h-9 py-3 px-2 border-2'
+              className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='text'
               placeholder='+1 365 2435676'
             />
