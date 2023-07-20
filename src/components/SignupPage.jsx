@@ -52,7 +52,7 @@ export default function SignupPage() {
             onChange={(e) => setUsername(e.target.value)}
             className='h-9 py-3 px-2 border-2 rounded-md'
             type='text'
-            placeholder='Username'
+            placeholder='Email or Username'
           />
           <input
             onChange={(e) => setPassword(e.target.value)}

@@ -16,14 +16,12 @@ import { setAdmin } from "../reducers/appointmentSlice";
 export default function LoginPage() {
   const [failedMessage, setFailedMessage] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+
   const auth = getAuth();
   const { currentUser } = useContext(AuthContext);
   const userId = localStorage.getItem("userId");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const googleProvider = new GoogleAuthProvider();
 
   useEffect(() => {
     if (currentUser) navigate("/dashboard");
@@ -38,39 +36,9 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       await sendPasswordResetEmail(auth, username);
+      setFailedMessage("Please check your email");
     } catch (error) {
       console.error(error);
-    }
-  };
-
-  // Functions for logging in
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, username, password);
-
-      if (username === "admin@vcc.com") {
-        dispatch(setAdmin());
-        console.log("admin is true!");
-      }
-    } catch (error) {
-      console.error(error);
-      if (error.code === "auth/wrong-password") {
-        setFailedMessage("Incorrect Password, please try again.");
-      } else if (error.code === "auth/user-not-found") {
-        setFailedMessage("Incorrect Username, please try again.");
-      } else {
-        setFailedMessage("An error occured please try again.");
-      }
     }
   };
 
@@ -90,16 +58,10 @@ export default function LoginPage() {
             type='text'
             placeholder='Email or Username'
           />
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            className='h-9 p-3 border-2 rounded-md'
-            type='password'
-            placeholder='Password'
-          />
           <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
           <div className='w-full flex flex-col mt-7'>
             <a
-              onClick={handleLogin}
+              onClick={handlePasswordReset}
               type='button'
               className='relative inline-flex items-center justify-center p-4 px-5 py-2 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-md shadow-md group mb-3 cursor-pointer'
             >
@@ -120,60 +82,20 @@ export default function LoginPage() {
                 </svg>
               </span>
               <span className='absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease'>
-                Login
+                Reset Password
               </span>
               <span className='relative invisible'>Button Text</span>
             </a>
 
-            <a
-              onClick={handleGoogleLogin}
-              type='button'
-              className='relative inline-flex items-center justify-center p-4 px-5 py-2 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-md shadow-md group cursor-pointer'
-            >
-              <span className='absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease'>
-                <svg
-                  className='w-6 h-6'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M14 5l7 7m0 0l-7 7m7-7H3'
-                  ></path>
-                </svg>
-              </span>
-              <span className='absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease'>
-                <img className='h-6 mr-2' src={glogo} alt='' />
-                Login with Google
-              </span>
-              <span className='relative invisible'>Button Text</span>
-            </a>
-
-            <p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-5'>
-              Create an account
+            <p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-7'>
+              Go back to
               <span>
                 <a
-                  onClick={() => navigate("/signup")}
+                  onClick={() => navigate("/login")}
                   className='text-purple-500'
                   href=''
                 >
-                  Sign Up
-                </a>
-              </span>
-            </p>
-            <p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-2'>
-              Forgot password?
-              <span>
-                <a
-                  onClick={() => navigate("/reset")}
-                  className='text-purple-500'
-                  href=''
-                >
-                  Reset
+                  Login
                 </a>
               </span>
             </p>
