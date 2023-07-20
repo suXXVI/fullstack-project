@@ -28,7 +28,7 @@ export const fetchAppointmentsByUser = createAsyncThunk(
 );
 
 // Thunk to add a new event
-export const addNewEvent = createAsyncThunk(
+export const addNewAppointment = createAsyncThunk(
   "appointments/addNewEvent",
   async (appointmentData) => {
     try {
@@ -115,14 +115,14 @@ const eventsSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
-      .addCase(addNewEvent.pending, (state) => {
+      .addCase(addNewAppointment.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addNewEvent.fulfilled, (state, action) => {
+      .addCase(addNewAppointment.fulfilled, (state, action) => {
         state.isLoading = false;
         state.appointments = [action.payload, ...state.appointments];
       })
-      .addCase(addNewEvent.rejected, (state, action) => {
+      .addCase(addNewAppointment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })

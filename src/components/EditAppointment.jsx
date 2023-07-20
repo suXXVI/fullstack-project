@@ -34,7 +34,7 @@ export default function EditEvent() {
 
   const userId = localStorage.getItem("userId");
 
-  const handleAddEvent = async () => {
+  const handleAddAppointment = async () => {
     const eventData = {
       title: title,
       content: content,
@@ -153,7 +153,7 @@ export default function EditEvent() {
               placeholder='+1 365 2435676'
             />
             <button
-              onClick={handleAddEvent}
+              onClick={handleAddAppointment}
               type='button'
               className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
             >

@@ -1,9 +1,8 @@
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-// import { AuthContext } from "./AuthProvider";
-import { addNewEvent } from "../reducers/appointmentSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewAppointment } from "../reducers/appointmentSlice";
 
 export default function AddEvent() {
   const dispatch = useDispatch();
@@ -14,10 +13,14 @@ export default function AddEvent() {
   const [time, setTime] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [failedMessage, setFailedMessage] = useState("");
 
   const userId = localStorage.getItem("userId");
+  const allAppointments = useSelector(
+    (state) => state.appointments.appointments
+  );
 
-  const handleAddEvent = async () => {
+  const handleAddAppointment = async () => {
     const appointmentData = {
       title: title,
       content: content,
@@ -28,9 +31,20 @@ export default function AddEvent() {
       username: userId,
     };
 
+    const isDateAvailable = allAppointments.some(
+      (appointment) => appointment.date === date && appointment.time === time
+    );
+
+    if (isDateAvailable) {
+      setFailedMessage(
+        "Time slot not available, please pick a different time."
+      );
+      console.log("The time and date are not available.");
+      return; // Do not proceed with adding the appointment
+    }
+
     try {
-      dispatch(addNewEvent(appointmentData));
-      // console.log(userId);
+      dispatch(addNewAppointment(appointmentData));
       navigate("/dashboard");
     } catch (error) {
       console.log("Error:", error);
@@ -135,8 +149,9 @@ export default function AddEvent() {
               type='text'
               placeholder='+1 365 2435676'
             />
+            <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
             <button
-              onClick={handleAddEvent}
+              onClick={handleAddAppointment}
               type='button'
               className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
             >

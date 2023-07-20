@@ -1,17 +1,8 @@
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { AuthContext } from "./AuthProvider";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/fflogo.png";
-import glogo from "../assets/google-logo.png";
-import { useDispatch } from "react-redux";
-import { setAdmin } from "../reducers/appointmentSlice";
 
 export default function LoginPage() {
   const [failedMessage, setFailedMessage] = useState("");
@@ -24,8 +15,6 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser) navigate("/dashboard");
-
     if (!currentUser && userId == null) {
       navigate("*");
     }
