@@ -131,7 +131,7 @@ export default function AddEvent() {
               onChange={handleSetDays}
               value={date}
               className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='text'
+              type='date'
               placeholder='mm-dd-yyy'
             />
             <p className='text-stone-600'>Time:</p>
@@ -139,7 +139,7 @@ export default function AddEvent() {
               onChange={handleSetTime}
               value={time}
               className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='text'
+              type='time'
               placeholder='2:00PM'
             />
             <p className='text-stone-600'>Email:</p>
