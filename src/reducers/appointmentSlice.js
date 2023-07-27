@@ -1,6 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const nodemailAPI = "https://nodemailer.suwanki.repl.co";
+
+export const sendEmail = createAsyncThunk(
+  "sendEmail/email",
+  async (appointmentData) => {
+    console.log(appointmentData);
+    try {
+      const response = await axios.post(
+        `${nodemailAPI}/send-email`,
+        appointmentData
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+);
+
 const BASE_URL =
   "https://booking-system-api-suwanki.sigma-school-full-stack.repl.co";
 
