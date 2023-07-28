@@ -45,12 +45,18 @@ export default function AddEvent() {
       (appointment) => appointment.date === date && appointment.time === time
     );
 
+    // form validation
+    if (!title || !content || !date || !time || !email || !phone) {
+      setFailedMessage("Incomplete appointment details");
+      return;
+    }
+
     if (isDateAvailable) {
       setFailedMessage(
         "Time slot not available, please pick a different time."
       );
       console.log("The time and date are not available.");
-      return; // Do not proceed with adding the appointment
+      return;
     }
 
     try {
@@ -135,6 +141,7 @@ export default function AddEvent() {
               className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='date'
               placeholder='mm-dd-yyy'
+              required
             />
             <p className='text-stone-600'>Time:</p>
             <input
@@ -142,7 +149,7 @@ export default function AddEvent() {
               value={time}
               className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='time'
-              placeholder='2:00PM'
+              required
             />
             <p className='text-stone-600'>Email:</p>
             <input
@@ -151,6 +158,7 @@ export default function AddEvent() {
               className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='text'
               placeholder='example@mail.com'
+              required
             />
             <p className='text-stone-600'>Phone:</p>
             <input
@@ -159,6 +167,7 @@ export default function AddEvent() {
               className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='text'
               placeholder='+1 365 2435676'
+              required
             />
             <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
             <button
