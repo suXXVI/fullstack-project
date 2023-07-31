@@ -13,8 +13,10 @@ export default function AddEvent() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [fromTime, setFromTime] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [toTime, setToTime] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [failedMessage, setFailedMessage] = useState("");
@@ -33,20 +35,23 @@ export default function AddEvent() {
     const appointmentData = {
       title: title,
       content: content,
-      date: date,
-      time: time,
+      fromdate: fromDate,
+      fromtime: fromTime,
+      totime: toTime,
+      todate: toDate,
       email: email,
       phone: phone,
-      username: userId,
+      userid: userId,
     };
 
     // checking if date and time is already booked
     const isDateAvailable = allAppointments.some(
-      (appointment) => appointment.date === date && appointment.time === time
+      (appointment) =>
+        appointment.fromdate === fromDate && appointment.fromtime === fromTime
     );
 
     // form validation
-    if (!title || !content || !date || !time || !email || !phone) {
+    if (!title || !fromDate || !fromTime || !email || !phone) {
       setFailedMessage("Incomplete appointment details");
       return;
     }
@@ -76,12 +81,22 @@ export default function AddEvent() {
     setContent(e.target.value);
   };
 
-  const handleSetDays = (e) => {
-    setDate(e.target.value);
+  // Set days available
+  const handleSetFromDate = (e) => {
+    setFromDate(e.target.value);
   };
 
-  const handleSetTime = (e) => {
-    setTime(e.target.value);
+  const handleSetToDate = (e) => {
+    setToDate(e.target.value);
+  };
+
+  //Set time available
+  const handleSetFromTime = (e) => {
+    setFromTime(e.target.value);
+  };
+
+  const handleSetToTime = (e) => {
+    setToTime(e.target.value);
   };
 
   const handleSetEmail = (e) => {
@@ -108,21 +123,14 @@ export default function AddEvent() {
         <div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10'>
           <form className='flex flex-col gap-4 w-full'>
             <p className='text-stone-600'>Appointment:</p>
-            <select
+            <input
               onChange={handleSetTitle}
               value={title}
               className='h-10 px-2 border-2'
               type='text'
-              placeholder='Title'
+              placeholder='Summary'
               required
-            >
-              <option>....</option>
-              <option>Repair</option>
-              <option>Urgent</option>
-              <option>Check Up</option>
-              <option>Basic Setup</option>
-              <option>Full Setup</option>
-            </select>
+            />
 
             <p className='text-stone-600'>Description:</p>
             <input
@@ -134,23 +142,46 @@ export default function AddEvent() {
               placeholder='Description'
             />
 
-            <p className='text-stone-600'>Date:</p>
+            {/* days available */}
+            <p className='text-stone-600'>Days available:</p>
+            <p className='text-stone-600'>From</p>
             <input
-              onChange={handleSetDays}
-              value={date}
+              onChange={handleSetFromDate}
+              value={fromDate}
               className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='date'
-              placeholder='mm-dd-yyy'
+              placeholder='From'
               required
             />
-            <p className='text-stone-600'>Time:</p>
+            <p className='text-stone-600'>to</p>
             <input
-              onChange={handleSetTime}
-              value={time}
+              onChange={handleSetToDate}
+              value={toDate}
+              className='h-9 py-3 px-2 border-2 focus:outline-none'
+              type='date'
+              required
+            />
+
+            {/* time available */}
+            <p className='text-stone-600'>Time:</p>
+            <p className='text-stone-600'>From</p>
+            <input
+              onChange={handleSetFromTime}
+              value={fromTime}
               className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='time'
               required
             />
+
+            <p className='text-stone-600'>To</p>
+            <input
+              onChange={handleSetToTime}
+              value={toTime}
+              className='h-9 py-3 px-2 border-2 focus:outline-none'
+              type='time'
+              required
+            />
+
             <p className='text-stone-600'>Email:</p>
             <input
               onChange={handleSetEmail}

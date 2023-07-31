@@ -39,7 +39,7 @@ export default function EventCard() {
   // Rendering appointments conditionally
   const filteredAppointments = isAdmin
     ? allAppointments // Render all appointments for admin
-    : allAppointments.filter((appointment) => appointment.username === userId);
+    : allAppointments.filter((appointment) => appointment.userid === userId);
 
   return (
     <div className='flex flex-wrap gap-4'>
@@ -70,7 +70,7 @@ export default function EventCard() {
           </div>
           <div className='mb-5'>
             <p className='font-semibold'>
-              {appointment.time} | {appointment.date}
+              {appointment.fromtime} | {appointment.fromdate}
             </p>
             <p className='font-normal text-gray-500'>{appointment.content}</p>
             {isAdmin ? (
