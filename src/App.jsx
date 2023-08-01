@@ -6,6 +6,7 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import Dashboard from "./components/Dashboard";
 import AddAppointment from "./components/AddAppointment";
+import OpenAppointment from "./components/OpenAppointment";
 import EditAppointment from "./components/EditAppointment";
 import ResetPassword from "./components/ResetPassword";
 
@@ -20,6 +21,7 @@ function App() {
             <Route path='/reset' element={<ResetPassword />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/add' element={<AddAppointment />} />
+            <Route path='/openappointment/:id' element={<OpenAppointment />} />
             <Route path='/edit/:id' element={<EditAppointment />} />
           </Routes>
         </BrowserRouter>

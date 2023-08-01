@@ -122,35 +122,34 @@ export default function AddEvent() {
         </div>
         <div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10'>
           <form className='flex flex-col gap-4 w-full'>
-            <p className='text-stone-600'>Appointment:</p>
+            <p className='text-stone-600'>Title:</p>
             <input
               onChange={handleSetTitle}
               value={title}
               className='h-10 px-2 border-2'
               type='text'
-              placeholder='Summary'
+              placeholder='Title'
               required
             />
 
-            <p className='text-stone-600'>Description:</p>
+            <p className='text-stone-600'>Content:</p>
             <input
               onChange={handleSetType}
               value={content}
               className='h-10 px-2 border-2 focus:outline-none'
               type='text'
               required
-              placeholder='Description'
+              placeholder='Content'
             />
 
             {/* days available */}
-            <p className='text-stone-600'>Days available:</p>
+            <p className='text-stone-600'>Days you are available:</p>
             <p className='text-stone-600'>From</p>
             <input
               onChange={handleSetFromDate}
               value={fromDate}
               className='h-9 py-3 px-2 border-2 focus:outline-none'
               type='date'
-              placeholder='From'
               required
             />
             <p className='text-stone-600'>to</p>
@@ -163,7 +162,7 @@ export default function AddEvent() {
             />
 
             {/* time available */}
-            <p className='text-stone-600'>Time:</p>
+            <p className='text-stone-600'>Time you are available:</p>
             <p className='text-stone-600'>From</p>
             <input
               onChange={handleSetFromTime}

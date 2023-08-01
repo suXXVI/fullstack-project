@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+//nodemailer
 const nodemailAPI = "https://nodemailer.suwanki.repl.co";
 
 export const sendEmail = createAsyncThunk(

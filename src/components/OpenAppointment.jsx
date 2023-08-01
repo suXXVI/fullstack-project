@@ -39,6 +39,7 @@ export default function EditEvent() {
 
   const userId = localStorage.getItem("userId");
 
+  //this will now add the appointment to google calendar
   const handleAddAppointment = async () => {
     const eventData = {
       title: title,
@@ -56,7 +57,7 @@ export default function EditEvent() {
       dispatch(
         editAppointment({ appointmentId: id, appointmentData: eventData })
       );
-      navigate("/dashboard");
+      // navigate("/dashboard");
     } catch (error) {
       console.log("Error:", error);
       setFailedMessage("An error while trying to save changes.");
@@ -99,6 +100,7 @@ export default function EditEvent() {
     <div>
       <Navbar />
       <div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
+        <h2>Set your Appointment</h2>
         <div className='flex justify-between w-full'>
           <button
             onClick={() => navigate("/dashboard")}
@@ -108,95 +110,53 @@ export default function EditEvent() {
             Go back
           </button>
         </div>
-        <div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10'>
-          <form className='flex flex-col gap-4 w-full'>
-            <p className='text-stone-600'>Appointment:</p>
-            <input
-              onChange={handleSetTitle}
-              value={title}
-              className='h-10 px-2 border-2'
-              type='text'
-              placeholder='Summary'
-              required
-            />
 
-            <p className='text-stone-600'>Description:</p>
-            <input
-              onChange={handleSetType}
-              value={content}
-              className='h-10 px-2 border-2 focus:outline-none'
-              type='text'
-              required
-              placeholder='Description'
-            />
+        <div className='flex flex-row w-full justify-between mt-10'>
+          <div className=''>
+            <h2>{title}</h2>
+            <p>{content}</p>
+            <p>Days available</p>
+            <p>
+              {fromDate} to {toDate}
+            </p>
+          </div>
 
-            {/* days available */}
-            <p className='text-stone-600'>Days available:</p>
-            <p className='text-stone-600'>From</p>
-            <input
-              onChange={handleSetFromDate}
-              value={fromDate}
-              className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='date'
-              placeholder='From'
-              required
-            />
-            <p className='text-stone-600'>to</p>
-            <input
-              onChange={handleSetToDate}
-              value={toDate}
-              className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='date'
-              required
-            />
-
-            {/* time available */}
-            <p className='text-stone-600'>Time:</p>
-            <p className='text-stone-600'>From</p>
-            <input
-              onChange={handleSetFromTime}
-              value={fromTime}
-              className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='time'
-              required
-            />
-
-            <p className='text-stone-600'>To</p>
-            <input
-              onChange={handleSetToTime}
-              value={toTime}
-              className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='time'
-              required
-            />
-
-            <p className='text-stone-600'>Email:</p>
-            <input
-              onChange={handleSetEmail}
-              value={email}
-              className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='text'
-              placeholder='example@mail.com'
-              required
-            />
-            <p className='text-stone-600'>Phone:</p>
-            <input
-              onChange={handleSetPhone}
-              value={phone}
-              className='h-9 py-3 px-2 border-2 focus:outline-none'
-              type='text'
-              placeholder='+1 365 2435676'
-              required
-            />
-            <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
-            <button
-              onClick={handleAddAppointment}
-              type='button'
-              className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
-            >
-              Save Changes
-            </button>
-          </form>
+          <div className='flex-1 max-w-md'>
+            <form className='form flex flex-col gap-5' id='event_form'>
+              <label htmlFor='summary'>Summary</label>
+              <input
+                type='text'
+                name='summary'
+                placeholder='Summary'
+                id='summary-input'
+              />
+              <label htmlFor='location'>Location</label>
+              <input
+                type='text'
+                name='location'
+                placeholder='Location'
+                id='location-input'
+              />
+              <label htmlFor='description'>Description</label>
+              <input
+                type='text'
+                name='description'
+                placeholder='Description'
+                id='description-input'
+              />
+              <label htmlFor='start_date'>Start Date</label>
+              <input type='date' name='start_date' id='startdate-input' />
+              <label htmlFor='start_time'>Start Time</label>
+              <input type='time' name='start_time' id='starttime-input' />
+              <label htmlFor='end_date'>End Date</label>
+              <input type='date' name='end_date' id='enddate-input' />
+              <label htmlFor='end_time'>End Time</label>
+              <input type='time' name='end_time' id='endtime-input' />
+              <button type='button' id='add_event_button'>
+                Set Appointment
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

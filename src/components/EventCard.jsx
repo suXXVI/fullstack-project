@@ -36,6 +36,11 @@ export default function EventCard() {
     navigate(`/edit/${appointmentId}`);
   };
 
+  //open appointment
+  const handleOpen = (appointmentId) => {
+    navigate(`/openappointment/${appointmentId}`);
+  };
+
   // Rendering appointments conditionally
   const filteredAppointments = isAdmin
     ? allAppointments // Render all appointments for admin
@@ -86,19 +91,33 @@ export default function EventCard() {
               </a>
             )}
           </div>
+          <div className='flex flex-row gap-2'>
+            {isAdmin ? (
+              <p></p>
+            ) : (
+              <div className='flex gap-2'>
+                <button
+                  onClick={() => handleEdit(appointment.id)}
+                  className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
+                >
+                  Edit
+                </button>
+              </div>
+            )}
 
-          {isAdmin ? (
-            <p></p>
-          ) : (
-            <div className='flex gap-2'>
-              <button
-                onClick={() => handleEdit(appointment.id)}
-                className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
-              >
-                Edit
-              </button>
-            </div>
-          )}
+            {isAdmin ? (
+              <p></p>
+            ) : (
+              <div className='flex gap-2'>
+                <button
+                  onClick={() => handleOpen(appointment.id)}
+                  className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
+                >
+                  Open
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       ))}
     </div>
