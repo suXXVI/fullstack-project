@@ -64,6 +64,16 @@ export const addNewAppointment = createAsyncThunk(
   }
 );
 
+// Thunk to fetch a specific appointment by ID
+export const fetchAppointmentById = createAsyncThunk(
+  "appointments/fetchById",
+  async (appointmentId) => {
+    const response = await fetch(`${BASE_URL}/appointments/${appointmentId}`);
+    const data = await response.json();
+    return data;
+  }
+);
+
 // Thunk to delete an event
 export const deleteAppointment = createAsyncThunk(
   "appointments/deleteEvent",
@@ -121,6 +131,17 @@ const eventsSlice = createSlice({
         state.appointments = action.payload;
       })
       .addCase(fetchAppointmentsByUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchAppointmentById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAppointmentById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.appointments = [action.payload]; // Store the fetched appointment in the state
+      })
+      .addCase(fetchAppointmentById.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
