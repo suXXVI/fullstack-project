@@ -20,34 +20,72 @@ export default function EditEvent() {
     return <p>Loading...</p>;
   }
 
-  const { title, content, fromDate, toDate, email } = appointment;
+  const { title, content, fromdate, todate, email } = appointment;
 
   return (
-    <div>
+    <>
       <div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
-        <h2>Set your Appointment</h2>
-        <h3>{email}</h3>
-
+        <h1 className='w-full text-3xl font-bold'>Set your Appointment</h1>
         <div className='flex flex-row w-full justify-between mt-10'>
-          <div className=''>
-            <h2>{title}</h2>
-            <p>{content}</p>
-            <p>Days available</p>
-            <p>
-              {fromDate} to {toDate}
+          <div className='flex flex-col gap-3'>
+            <p className='text-2xl font-semibold'>{email}</p>
+            <p className='font-semibold'>{title}</p>
+            <p className='font-semibold'>{content}</p>
+            <p className='font-semibold text-xl'>Days available</p>
+            <p className='font-semibold'>
+              {fromdate} to {todate}
             </p>
           </div>
 
           <div className='flex-1 max-w-md'>
             <form className='form flex flex-col gap-5' id='event_form'>
-              {/* Your form elements here */}
-              <button type='button' id='add_event_button'>
+              <label>Summary</label>
+              <input
+                type='text'
+                name='summary'
+                placeholder='Summary'
+                id='summary-input'
+              />
+              <label>Location</label>
+              <input
+                type='text'
+                name='location'
+                placeholder='Location'
+                id='location-input'
+              />
+              <label>Description</label>
+              <input
+                type='text'
+                name='description'
+                placeholder='Description'
+                id='description-input'
+              />
+              <label>Start Date</label>
+              <input type='date' name='start_date' id='startdate-input' />
+              <label>Start Time</label>
+              <input type='time' name='start_time' id='starttime-input' />
+              <label>End Date</label>
+              <input type='date' name='end_date' id='enddate-input' />
+              <label>End Time</label>
+              <input type='time' name='end_time' id='endtime-input' />
+              <label>Attendees (comma-separated email addresses)</label>
+              <input
+                type='text'
+                name='attendees'
+                placeholder='Enter attendee emails'
+                id='attendees-input'
+              />
+              <button
+                className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
+                type='button'
+                id='add_event_button'
+              >
                 Set Appointment
               </button>
             </form>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
