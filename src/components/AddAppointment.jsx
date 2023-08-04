@@ -128,7 +128,7 @@ export default function AddEvent() {
               value={title}
               className='h-10 px-2 border-2'
               type='text'
-              placeholder='Title'
+              placeholder='e.g., 1hr meeting'
               required
             />
 
