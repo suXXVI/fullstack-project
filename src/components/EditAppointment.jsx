@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editAppointment } from "../reducers/appointmentSlice";
+import { resetAppointments } from "../reducers/appointmentSlice";
 
 export default function EditEvent() {
   const { id } = useParams();
@@ -64,6 +65,7 @@ export default function EditEvent() {
       dispatch(
         editAppointment({ appointmentId: id, appointmentData: eventData })
       );
+      dispatch(resetAppointments());
       navigate("/dashboard");
     } catch (error) {
       console.log("Error:", error);
