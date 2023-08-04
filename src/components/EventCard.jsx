@@ -15,11 +15,10 @@ export default function EventCard() {
     (state) => state.appointments.appointments
   );
 
-  //checking to see if admin is logged in
   useEffect(() => {
     if (isAdmin === true) {
       dispatch(fetchAllAppointments());
-      console.log("admin loggin in");
+      console.log("admin logging in");
     } else {
       dispatch(fetchAppointmentsByUser(userId));
     }

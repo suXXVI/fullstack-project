@@ -47,7 +47,7 @@ export default function EditEvent() {
 
   const userId = localStorage.getItem("userId");
 
-  const handleAddAppointment = async () => {
+  const handleSaveAppointment = async () => {
     const eventData = {
       title: title,
       content: content,
@@ -199,7 +199,7 @@ export default function EditEvent() {
             />
             <p className='text-red-500 font-light text-xs'>{failedMessage}</p>
             <button
-              onClick={handleAddAppointment}
+              onClick={handleSaveAppointment}
               type='button'
               className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
             >
