@@ -1,28 +1,13 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { fetchAppointmentsByUser } from "../reducers/appointmentSlice";
 import { useDispatch } from "react-redux";
 import { deleteAppointment } from "../reducers/appointmentSlice";
 import { useNavigate } from "react-router-dom";
-import { fetchAllAppointments } from "../reducers/appointmentSlice";
 
-export default function EventCard() {
+export default function AppointmentCard({ appointments }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const isAdmin = useSelector((state) => state.appointments.isAdmin);
-  const allAppointments = useSelector(
-    (state) => state.appointments.appointments
-  );
-
-  useEffect(() => {
-    if (isAdmin === true) {
-      dispatch(fetchAllAppointments());
-      console.log("admin logging in");
-    } else {
-      dispatch(fetchAppointmentsByUser(userId));
-    }
-  }, [userId, isAdmin, dispatch]);
 
   // Delete button
   const handleDelete = (appointmentId) => {
@@ -42,8 +27,8 @@ export default function EventCard() {
 
   // Rendering appointments conditionally
   const filteredAppointments = isAdmin
-    ? allAppointments // Render all appointments for admin
-    : allAppointments.filter((appointment) => appointment.userid === userId);
+    ? appointments // Use the passed appointments prop for admin
+    : appointments.filter((appointment) => appointment.userid === userId);
 
   return (
     <div className='flex flex-wrap gap-4'>

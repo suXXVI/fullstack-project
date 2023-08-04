@@ -1,11 +1,34 @@
 import Navbar from "./Navbar";
-import EventCard from "./EventCard";
+import AppointmentCard from "./AppointmentCard";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  fetchAllAppointments,
+  fetchAppointmentsByUser,
+} from "../reducers/appointmentSlice";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.appointments.isLoading);
+  const dispatch = useDispatch();
+
+  const appointments = useSelector((state) => state.appointments.appointments);
+  const userId = localStorage.getItem("userId");
+  const isAdmin = useSelector((state) => state.appointments.isAdmin);
+  const allAppointments = useSelector(
+    (state) => state.appointments.appointments
+  );
+
+  useEffect(() => {
+    // Fetch appointments when the Dashboard component mounts
+    if (isAdmin) {
+      dispatch(fetchAllAppointments());
+    } else {
+      dispatch(fetchAppointmentsByUser(userId));
+    }
+  }, [userId, isAdmin, dispatch]);
 
   return (
     <div>
@@ -34,7 +57,9 @@ export default function Dashboard() {
 
         {/* events container */}
         <div className='flex justify-start w-full mt-5'>
-          <EventCard />
+          <AppointmentCard
+            appointments={isAdmin ? allAppointments : appointments}
+          />
         </div>
       </div>
     </div>

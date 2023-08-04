@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editAppointment } from "../reducers/appointmentSlice";
-import { fetchAppointmentsByUser } from "../reducers/appointmentSlice";
 
 export default function EditEvent() {
   const { id } = useParams();
   const appointments = useSelector((state) => state.appointments.appointments);
+  const isLoading = useSelector((state) => state.appointments.isLoading);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,10 +62,9 @@ export default function EditEvent() {
     };
 
     try {
-      dispatch(
+      await dispatch(
         editAppointment({ appointmentId: id, appointmentData: eventData })
       );
-      dispatch(fetchAppointmentsByUser());
       navigate("/dashboard");
     } catch (error) {
       console.log("Error:", error);
@@ -205,7 +204,7 @@ export default function EditEvent() {
               type='button'
               className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
             >
-              Save Changes
+              {isLoading ? "Saving..." : "Save changes"}
             </button>
           </form>
         </div>
