@@ -29,13 +29,21 @@ export default function EditEvent() {
       setTitle(appointment.title);
       setContent(appointment.content);
       setFromDate(appointment.fromdate);
-      setToDate(appointment.todate);
+      setToDate(formatDate(appointment.todate));
       setFromTime(appointment.fromtime);
       setToTime(appointment.totime);
       setEmail(appointment.email);
       setPhone(appointment.phone);
     }
   }, [id, appointments]);
+
+  function formatDate(isoDate) {
+    const dateObject = new Date(isoDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
 
   const userId = localStorage.getItem("userId");
 
@@ -77,6 +85,7 @@ export default function EditEvent() {
 
   const handleSetToDate = (e) => {
     setToDate(e.target.value);
+    console.log(toDate);
   };
 
   //Set time available
