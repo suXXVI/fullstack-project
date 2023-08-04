@@ -65,7 +65,7 @@ export default function EditEvent() {
       dispatch(
         editAppointment({ appointmentId: id, appointmentData: eventData })
       );
-      dispatch(resetAppointments());
+
       navigate("/dashboard");
     } catch (error) {
       console.log("Error:", error);
