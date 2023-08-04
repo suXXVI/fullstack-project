@@ -39,10 +39,11 @@ export const fetchAllAppointments = createAsyncThunk(
 export const fetchAppointmentsByUser = createAsyncThunk(
   "appointments/fetchByUser",
   async (userId) => {
-    const response = await fetch(`${BASE_URL}/appointments/userid/${userId}`);
+    const timestamp = Date.now(); // Get the current timestamp
+    const response = await fetch(
+      `${BASE_URL}/appointments/userid/${userId}?t=${timestamp}`
+    );
     const data = await response.json();
-    // console.log(userId);
-    // console.log(data);
     return data;
   }
 );
