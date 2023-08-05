@@ -108,17 +108,17 @@ export default function EditEvent() {
 	return (
 		<div>
 			<Navbar />
-			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
-				<div className='flex justify-between w-full'>
+			<div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
+				<div className='flex justify-end w-full'>
 					<button
 						onClick={() => navigate('/dashboard')}
 						type='button'
-						className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
+						className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
 					>
 						Go back
 					</button>
 				</div>
-				<div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10'>
+				<div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10 bg-black text-white rounded-lg px-5'>
 					<form className='flex flex-col gap-4 w-full'>
 						<p className='text-stone-600'>Appointment:</p>
 						<input
@@ -202,7 +202,7 @@ export default function EditEvent() {
 						<button
 							onClick={handleSaveAppointment}
 							type='button'
-							className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none'
+							className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
 						>
 							{isLoading ? 'Saving...' : 'Save changes'}
 						</button>

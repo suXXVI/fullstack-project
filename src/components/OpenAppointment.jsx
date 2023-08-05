@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAppointmentById } from '../reducers/appointmentSlice';
 import { saveAppointment } from '../reducers/addtodb';
+import timesync from '../assets/timesync.png';
 
 export default function OpenAppointment() {
 	const [summaryG, setSummaryG] = useState('');
@@ -57,8 +58,9 @@ export default function OpenAppointment() {
 	return (
 		<>
 			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
+				<img src={timesync} className='h-5' />
 				<h1 className='w-full text-3xl font-bold'>Set your Appointment</h1>
-				<div className='flex flex-row w-full justify-between mt-10'>
+				<div className='flex flex-col md:flex-row md:gap-10 w-full justify-between mt-10'>
 					<div className='flex flex-col gap-3'>
 						<p className='text-2xl font-semibold'>{emailWithoutQuotes}</p>
 						<p className='font-semibold'>{title}</p>
@@ -145,7 +147,7 @@ export default function OpenAppointment() {
 							/>
 							<button
 								onClick={handleAddToDb}
-								className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
+								className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none w-full'
 								type='button'
 								id='add_event_button'
 							>
