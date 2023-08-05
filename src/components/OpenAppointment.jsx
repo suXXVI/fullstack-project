@@ -1,9 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAppointmentById } from '../reducers/appointmentSlice';
+import { saveAppointment } from '../reducers/addtodb';
 
 export default function OpenAppointment() {
+	const [summaryG, setSummaryG] = useState('');
+	const [locationG, setLocationG] = useState('');
+	const [descriptionG, setDescriptionG] = useState('');
+	const [fromDateG, setFromDateG] = useState('');
+	const [fromTimeG, setFromTimeG] = useState('');
+	const [toDateG, setToDateG] = useState('');
+	const [toTimeG, setToTimeG] = useState('');
+	const [attendeesG, SetAttendeesG] = useState('');
+
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const appointment = useSelector((state) =>
@@ -25,6 +35,25 @@ export default function OpenAppointment() {
 	const toDateFormatted = new Date(todate).toISOString().slice(0, 10);
 	const emailWithoutQuotes = email.replace(/"/g, '');
 
+	const handleAddToDb = () => {
+		console.log('fromDateG:', fromDateG);
+		console.log('fromTimeG:', fromTimeG);
+		console.log('toDateG:', toDateG);
+		console.log('toTimeG:', toTimeG);
+		const startDateTime = new Date(`${fromDateG}T${fromTimeG}`).toISOString();
+		const endDateTime = new Date(`${toDateG}T${toTimeG}`).toISOString();
+
+		const appointmentData = {
+			summary: summaryG,
+			location: locationG,
+			description: descriptionG, // Fix the typo here
+			startDateTime: startDateTime,
+			endDateTime: endDateTime,
+			attendees: attendeesG,
+		};
+		dispatch(saveAppointment(appointmentData));
+	};
+
 	return (
 		<>
 			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
@@ -44,6 +73,8 @@ export default function OpenAppointment() {
 						<form className='form flex flex-col gap-5' id='event_form'>
 							<label>Summary</label>
 							<input
+								onChange={(e) => setSummaryG(e.target.value)}
+								value={summaryG}
 								type='text'
 								name='summary'
 								placeholder='Summary'
@@ -51,6 +82,8 @@ export default function OpenAppointment() {
 							/>
 							<label>Location</label>
 							<input
+								onChange={(e) => setLocationG(e.target.value)}
+								value={locationG}
 								type='text'
 								name='location'
 								placeholder='Location'
@@ -58,6 +91,8 @@ export default function OpenAppointment() {
 							/>
 							<label>Description</label>
 							<input
+								onChange={(e) => setDescriptionG(e.target.value)}
+								value={descriptionG}
 								type='text'
 								name='description'
 								placeholder='Description'
@@ -65,6 +100,8 @@ export default function OpenAppointment() {
 							/>
 							<label>Start Date</label>
 							<input
+								onChange={(e) => setFromDateG(e.target.value)}
+								value={fromDateG}
 								type='date'
 								name='start_date'
 								id='startdate-input'
@@ -72,9 +109,17 @@ export default function OpenAppointment() {
 								max={toDateFormatted}
 							/>
 							<label>Start Time</label>
-							<input type='time' name='start_time' id='starttime-input' />
+							<input
+								onChange={(e) => setFromTimeG(e.target.value)}
+								value={fromTimeG}
+								type='time'
+								name='start_time'
+								id='starttime-input'
+							/>
 							<label>End Date</label>
 							<input
+								onChange={(e) => setToDateG(e.target.value)}
+								value={toDateG}
 								type='date'
 								name='end_date'
 								id='enddate-input'
@@ -82,15 +127,24 @@ export default function OpenAppointment() {
 								max={toDateFormatted}
 							/>
 							<label>End Time</label>
-							<input type='time' name='end_time' id='endtime-input' />
+							<input
+								onChange={(e) => setToTimeG(e.target.value)}
+								value={toTimeG}
+								type='time'
+								name='end_time'
+								id='endtime-input'
+							/>
 							<label>Attendees (comma-separated email addresses)</label>
 							<input
+								onChange={(e) => SetAttendeesG(e.target.value)}
+								value={attendeesG}
 								type='text'
 								name='attendees'
 								placeholder='Enter attendee emails'
 								id='attendees-input'
 							/>
 							<button
+								onClick={handleAddToDb}
 								className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-purple-600 rounded-lg hover:bg-purple-700 focus:shadow-outline focus:outline-none w-full'
 								type='button'
 								id='add_event_button'
