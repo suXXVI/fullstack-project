@@ -43,8 +43,8 @@ export default function SignupPage() {
 		<div className='flex flex-col justify-center items-center h-screen mx-auto'>
 			<div className='flex flex-col justify-center items-center gap-2 mb-10'>
 				<img className='h-10' src={timesync} alt='' />
-				<p className='text-xs text-stone-400'>
-					Restoring Harmony, One Fret at a Time!
+				<p className='text-xs text-stone-400 mt-3'>
+					Seamlessly manage your meetings and appointments.
 				</p>
 			</div>
 			<div className='flex flex-col max-w-md h-96 w-72 border border-stone-300 shadow-lg shadow-stone-400  p-10 rounded-lg'>
