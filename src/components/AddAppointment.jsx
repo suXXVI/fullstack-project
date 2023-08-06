@@ -13,6 +13,7 @@ export default function AddEvent() {
 	const navigate = useNavigate();
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
+	const [name, setName] = useState('');
 	const [fromDate, setFromDate] = useState('');
 	const [fromTime, setFromTime] = useState('');
 	const [toDate, setToDate] = useState('');
@@ -34,6 +35,7 @@ export default function AddEvent() {
 	const handleAddAppointment = async () => {
 		const appointmentData = {
 			title: title,
+			name: name,
 			content: content,
 			fromdate: fromDate,
 			fromtime: fromTime,
@@ -75,6 +77,10 @@ export default function AddEvent() {
 
 	const handleSetTitle = (e) => {
 		setTitle(e.target.value);
+	};
+
+	const handleSetName = (e) => {
+		setName(e.target.value);
 	};
 
 	const handleSetType = (e) => {
@@ -120,101 +126,105 @@ export default function AddEvent() {
 						Go back
 					</button>
 				</div>
-				<div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10 border-black  rounded-lg px-5 md:w-full'>
-					<form className='flex flex-col gap-4 w-full md:flex-row'>
-						<div>
-							<p className='text-stone-600'>Title:</p>
-							<input
-								onChange={handleSetTitle}
-								value={title}
-								className='h-10 px-2 border-2'
-								type='text'
-								placeholder='e.g., 1hr meeting'
-								required
-							/>
+				<div>
+					<form className='flex flex-col gap-3'>
+						<p className='text-stone-600'>Title</p>
+						<input
+							onChange={handleSetTitle}
+							value={title}
+							className='h-10 px-2 border-2 w-full focus:outline-none'
+							type='text'
+							placeholder='e.g., 1hr meeting'
+							required
+						/>
 
-							<p className='text-stone-600'>Details:</p>
-							<input
-								onChange={handleSetType}
-								value={content}
-								className='h-10 px-2 border-2 focus:outline-none'
-								type='text'
-								required
-								placeholder='Details'
-							/>
-						</div>
+						<p className='text-stone-600'>Name</p>
+						<input
+							onChange={handleSetName}
+							value={name}
+							className='h-10 px-2 border-2 w-full focus:outline-none'
+							type='text'
+							placeholder='e.g., John Doe'
+							required
+						/>
+
+						<p className='text-stone-600'>Details</p>
+						<input
+							onChange={handleSetType}
+							value={content}
+							className='h-10 w-full px-2 border-2 focus:outline-none'
+							type='text'
+							required
+							placeholder='Details'
+						/>
 
 						{/* days available */}
-						<div>
-							<p className='text-stone-600'>Days you are available:</p>
-							<p className='text-stone-600'>From</p>
-							<input
-								onChange={handleSetFromDate}
-								value={fromDate}
-								className='h-9 py-3 px-2 border-2 focus:outline-none'
-								type='date'
-								required
-							/>
-							<p className='text-stone-600'>to</p>
-							<input
-								onChange={handleSetToDate}
-								value={toDate}
-								className='h-9 py-3 px-2 border-2 focus:outline-none'
-								type='date'
-								required
-							/>
-						</div>
+						{/* <p className='text-stone-600'>Days you are available:</p> */}
+						<p className='text-stone-600'>From</p>
+						<input
+							onChange={handleSetFromDate}
+							value={fromDate}
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
+							type='date'
+							required
+						/>
+						<p className='text-stone-600'>to</p>
+						<input
+							onChange={handleSetToDate}
+							value={toDate}
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
+							type='date'
+							required
+						/>
 
 						{/* time available */}
-						<div>
-							<p className='text-stone-600'>Time you are available:</p>
-							<p className='text-stone-600'>From</p>
-							<input
-								onChange={handleSetFromTime}
-								value={fromTime}
-								className='h-9 py-3 px-2 border-2 focus:outline-none'
-								type='time'
-								required
-							/>
+						{/* <p className='text-stone-600'>Time you are available:</p> */}
+						<p className='text-stone-600'>From</p>
+						<input
+							onChange={handleSetFromTime}
+							value={fromTime}
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
+							type='time'
+							required
+						/>
 
-							<p className='text-stone-600'>To</p>
-							<input
-								onChange={handleSetToTime}
-								value={toTime}
-								className='h-9 py-3 px-2 border-2 focus:outline-none'
-								type='time'
-								required
-							/>
-						</div>
+						<p className='text-stone-600'>To</p>
+						<input
+							onChange={handleSetToTime}
+							value={toTime}
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
+							type='time'
+							required
+						/>
 
-						<div>
-							<p className='text-stone-600'>Email:</p>
-							<input
-								onChange={handleSetEmail}
-								value={email}
-								className='h-9 py-3 px-2 border-2 focus:outline-none'
-								type='text'
-								placeholder='example@mail.com'
-								required
-							/>
-							<p className='text-stone-600'>Phone:</p>
-							<input
-								onChange={handleSetPhone}
-								value={phone}
-								className='h-9 py-3 px-2 border-2 focus:outline-none'
-								type='number'
-								placeholder='+1 365 2435676'
-								required
-							/>
-						</div>
+						<p className='text-stone-600'>Email:</p>
+						<input
+							onChange={handleSetEmail}
+							value={email}
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
+							type='text'
+							placeholder='example@mail.com'
+							required
+						/>
+						<p className='text-stone-600'>Phone:</p>
+						<input
+							onChange={handleSetPhone}
+							value={phone}
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
+							type='number'
+							placeholder='+1 365 2435676'
+							required
+						/>
 						<p className='text-red-500 font-light text-xs'>{failedMessage}</p>
-						<button
-							onClick={handleAddAppointment}
-							type='button'
-							className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
-						>
-							Add
-						</button>
+						<div className='mt-10 flex flex-row justify-end'>
+							<button
+								onClick={handleAddAppointment}
+								type='button'
+								className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none w-24'
+							>
+								Add
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>

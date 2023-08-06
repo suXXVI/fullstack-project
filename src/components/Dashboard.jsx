@@ -1,4 +1,5 @@
 import Navbar from './Navbar';
+import LoadingAnim from './LoadingAnim';
 import AppointmentCard from './AppointmentCard';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -36,12 +37,7 @@ export default function Dashboard() {
 			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
 				<div className='flex justify-between items-center w-full'>
 					{isLoading ? (
-						<div className='lds-ellipsis'>
-							<div></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
+						<LoadingAnim />
 					) : (
 						<p className='sm:text-3xl text-2xl text-gray-800 font-bold '>
 							Appointments

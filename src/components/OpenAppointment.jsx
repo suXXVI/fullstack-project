@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAppointmentById } from '../reducers/appointmentSlice';
 import { saveAppointment } from '../reducers/addtodb';
 import timesync from '../assets/timesync.png';
+import logo from '../assets/logo-only.png';
+import LoadingAnim from './LoadingAnim';
 
 export default function OpenAppointment() {
 	const [summaryG, setSummaryG] = useState('');
@@ -28,10 +30,14 @@ export default function OpenAppointment() {
 
 	if (!appointment) {
 		// If the appointment is still being fetched or not found, show a loading message or an error message.
-		return <p>Loading...</p>;
+		return (
+			<div className='flex h-screen'>
+				<LoadingAnim className='m-auto' />
+			</div>
+		);
 	}
 
-	const { title, content, fromdate, todate, email } = appointment;
+	const { title, content, fromdate, todate, email, name } = appointment;
 	const fromDateFormatted = new Date(fromdate).toISOString().slice(0, 10);
 	const toDateFormatted = new Date(todate).toISOString().slice(0, 10);
 	const emailWithoutQuotes = email.replace(/"/g, '');
@@ -57,12 +63,29 @@ export default function OpenAppointment() {
 
 	return (
 		<>
+			<nav className='border-gray-200 border-b'>
+				<div className='max-w-screen-xl flex flex-row items-center justify-between mx-auto p-4'>
+					<a href='#' className='flex items-center'>
+						<img
+							src={timesync}
+							className='h-6 hidden sm:block sm:h-8 ml-3'
+							alt='Flowbite Logo'
+						/>
+						<img
+							src={logo}
+							className='h-12 sm:hidden ml-3'
+							alt='Flowbite Logo'
+						/>
+						<span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'></span>
+					</a>
+				</div>
+			</nav>
 			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
-				<img src={timesync} className='h-5' />
-				<h1 className='w-full text-3xl font-bold'>Set your Appointment</h1>
+				<h1 className='w-full text-3xl font-bold'>Set your Appointment with</h1>
 				<div className='flex flex-col md:flex-row md:gap-10 w-full justify-between mt-10'>
-					<div className='flex flex-col gap-3'>
-						<p className='text-2xl font-semibold'>{emailWithoutQuotes}</p>
+					<div className='flex flex-col gap-3 mb-16'>
+						<p className='text-3xl font-semibold'>{name}</p>
+						<p className='font-semibold'>{emailWithoutQuotes}</p>
 						<p className='font-semibold'>{title}</p>
 						<p className='font-semibold'>{content}</p>
 						<p className='font-semibold text-xl'>Days available</p>
@@ -81,6 +104,7 @@ export default function OpenAppointment() {
 								name='summary'
 								placeholder='Summary'
 								id='summary-input'
+								className='focus:outline-none'
 							/>
 							<label>Location</label>
 							<input
@@ -90,6 +114,7 @@ export default function OpenAppointment() {
 								name='location'
 								placeholder='Location'
 								id='location-input'
+								className='focus:outline-none'
 							/>
 							<label>Description</label>
 							<input
@@ -99,6 +124,7 @@ export default function OpenAppointment() {
 								name='description'
 								placeholder='Description'
 								id='description-input'
+								className='focus:outline-none'
 							/>
 							<label>Start Date</label>
 							<input
@@ -107,6 +133,7 @@ export default function OpenAppointment() {
 								type='date'
 								name='start_date'
 								id='startdate-input'
+								className='focus:outline-none'
 								min={fromDateFormatted}
 								max={toDateFormatted}
 							/>
@@ -117,6 +144,7 @@ export default function OpenAppointment() {
 								type='time'
 								name='start_time'
 								id='starttime-input'
+								className='focus:outline-none'
 							/>
 							<label>End Date</label>
 							<input
@@ -125,6 +153,7 @@ export default function OpenAppointment() {
 								type='date'
 								name='end_date'
 								id='enddate-input'
+								className='focus:outline-none'
 								min={fromDateFormatted}
 								max={toDateFormatted}
 							/>
@@ -135,14 +164,16 @@ export default function OpenAppointment() {
 								type='time'
 								name='end_time'
 								id='endtime-input'
+								className='focus:outline-none'
 							/>
-							<label>Attendees (comma-separated email addresses)</label>
+							<label>Your Email</label>
 							<input
 								onChange={(e) => SetAttendeesG(e.target.value)}
 								value={attendeesG}
 								type='text'
 								name='attendees'
-								placeholder='Enter attendee emails'
+								className='focus:outline-none'
+								placeholder='example@mail.com'
 								id='attendees-input'
 							/>
 							<button

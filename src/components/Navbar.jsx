@@ -3,6 +3,7 @@ import { AuthContext } from './AuthProvider';
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import timesync from '../assets/timesync.png';
+import logo from '../assets/logo-only.png';
 import useLocalStorage from 'use-local-storage';
 import { resetAppointments } from '../reducers/appointmentSlice';
 import { useDispatch } from 'react-redux';
@@ -29,7 +30,12 @@ export default function Navbar() {
 		<nav className='border-gray-200 border-b'>
 			<div className='max-w-screen-xl flex flex-row items-center justify-between mx-auto p-4'>
 				<a href='#' className='flex items-center'>
-					<img src={timesync} className='h-6 sm:h-8 ml-3' alt='Flowbite Logo' />
+					<img
+						src={timesync}
+						className='h-6 hidden sm:block sm:h-8 ml-3'
+						alt='Flowbite Logo'
+					/>
+					<img src={logo} className='h-12 sm:hidden ml-3' alt='Flowbite Logo' />
 					<span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'></span>
 				</a>
 				<div className='flex flex-row justify-center items-center gap-5'>

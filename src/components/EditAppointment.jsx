@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editAppointment } from '../reducers/appointmentSlice';
+import LoadingAnim from './LoadingAnim';
 
 export default function EditEvent() {
 	const { id } = useParams();
@@ -118,13 +119,13 @@ export default function EditEvent() {
 						Go back
 					</button>
 				</div>
-				<div className='flex flex-col justify-center items-center mx-auto w-96 border-2 p-2 mt-10 bg-black text-white rounded-lg px-5'>
-					<form className='flex flex-col gap-4 w-full'>
+				<div>
+					<form className='flex flex-col gap-3'>
 						<p className='text-stone-600'>Appointment:</p>
 						<input
 							onChange={handleSetTitle}
 							value={title}
-							className='h-10 px-2 border-2'
+							className='h-10 px-2 border-2 w-full'
 							type='text'
 							placeholder='Summary'
 							required
@@ -134,19 +135,19 @@ export default function EditEvent() {
 						<input
 							onChange={handleSetType}
 							value={content}
-							className='h-10 px-2 border-2 focus:outline-none'
+							className='h-10 px-2 border-2 focus:outline-none w-full'
 							type='text'
 							required
 							placeholder='Description'
 						/>
 
 						{/* days available */}
-						<p className='text-stone-600'>Days available:</p>
+
 						<p className='text-stone-600'>From</p>
 						<input
 							onChange={handleSetFromDate}
 							value={fromDate}
-							className='h-9 py-3 px-2 border-2 focus:outline-none'
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='date'
 							placeholder='From'
 							required
@@ -155,18 +156,18 @@ export default function EditEvent() {
 						<input
 							onChange={handleSetToDate}
 							value={toDate}
-							className='h-9 py-3 px-2 border-2 focus:outline-none'
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='date'
 							required
 						/>
 
 						{/* time available */}
-						<p className='text-stone-600'>Time:</p>
+
 						<p className='text-stone-600'>From</p>
 						<input
 							onChange={handleSetFromTime}
 							value={fromTime}
-							className='h-9 py-3 px-2 border-2 focus:outline-none'
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='time'
 							required
 						/>
@@ -175,7 +176,7 @@ export default function EditEvent() {
 						<input
 							onChange={handleSetToTime}
 							value={toTime}
-							className='h-9 py-3 px-2 border-2 focus:outline-none'
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='time'
 							required
 						/>
@@ -184,7 +185,7 @@ export default function EditEvent() {
 						<input
 							onChange={handleSetEmail}
 							value={email}
-							className='h-9 py-3 px-2 border-2 focus:outline-none'
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='text'
 							placeholder='example@mail.com'
 							required
@@ -193,19 +194,21 @@ export default function EditEvent() {
 						<input
 							onChange={handleSetPhone}
 							value={phone}
-							className='h-9 py-3 px-2 border-2 focus:outline-none'
+							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='text'
 							placeholder='+1 365 2435676'
 							required
 						/>
 						<p className='text-red-500 font-light text-xs'>{failedMessage}</p>
-						<button
-							onClick={handleSaveAppointment}
-							type='button'
-							className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
-						>
-							{isLoading ? 'Saving...' : 'Save changes'}
-						</button>
+						<div className='mt-10 flex flex-row justify-end'>
+							<button
+								onClick={handleSaveAppointment}
+								type='button'
+								className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
+							>
+								{isLoading ? 'Saving...' : 'Save changes'}
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>
