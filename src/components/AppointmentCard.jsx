@@ -23,11 +23,7 @@ export default function AppointmentCard({ appointments }) {
 		navigate(`/edit/${appointmentId}`);
 	};
 
-	//open appointment
-	const handleOpen = (appointmentId) => {
-		navigate(`/openappointment/${appointmentId}`);
-	};
-
+	//share link
 	const handleShare = (appointmentId) => {
 		const appointmentUrl = `${window.location.origin}/openappointment/${appointmentId}`;
 		navigator.clipboard
@@ -97,12 +93,17 @@ export default function AppointmentCard({ appointments }) {
 							<p></p>
 						) : (
 							<div className='flex gap-2'>
-								<button
+								<a
 									onClick={() => handleEdit(appointment.id)}
-									className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none w-full'
+									href='#_'
+									className='relative inline-block px-4 py-2 font-medium group text-center'
 								>
-									Edit
-								</button>
+									<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+									<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+									<span className='relative text-black group-hover:text-white '>
+										Edit
+									</span>
+								</a>
 							</div>
 						)}
 
@@ -110,25 +111,30 @@ export default function AppointmentCard({ appointments }) {
 							<p></p>
 						) : (
 							<div className='flex gap-2'>
-								<button
+								<a
 									onClick={() => handleShare(appointment.id)}
-									className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none focus:bg-stone-600 w-full cursor-pointer'
+									href='#_'
+									className='relative inline-block px-4 py-2 font-medium group text-center'
 								>
-									<svg
-										xmlns='http://www.w3.org/2000/svg'
-										fill='none'
-										viewBox='0 0 24 24'
-										strokeWidth='1.5'
-										stroke='currentColor'
-										className='w-6 h-6'
-									>
-										<path
-											strokeLinecap='round'
-											strokeLinejoin='round'
-											d='M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z'
-										/>
-									</svg>
-								</button>
+									<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+									<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+									<span className='relative text-black group-hover:text-white '>
+										<svg
+											xmlns='http://www.w3.org/2000/svg'
+											fill='none'
+											viewBox='0 0 24 24'
+											strokeWidth='1.5'
+											stroke='currentColor'
+											className='w-6 h-6'
+										>
+											<path
+												strokeLinecap='round'
+												strokeLinejoin='round'
+												d='M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z'
+											/>
+										</svg>
+									</span>
+								</a>
 							</div>
 						)}
 					</div>

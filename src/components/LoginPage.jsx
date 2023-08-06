@@ -71,7 +71,7 @@ export default function LoginPage() {
 					Seamlessly manage your meetings and appointments.
 				</p>
 			</div>
-			<div className='flex flex-col max-w-md h-96 w-72 border border-stone-300 shadow-md shadow-stone-400  p-10 rounded-lg'>
+			<div className='flex flex-col max-w-md h-100 w-72 border border-stone-300 shadow-md shadow-stone-400  p-10 rounded-lg'>
 				<form className='flex flex-col gap-4'>
 					<input
 						onChange={(e) => setUsername(e.target.value)}
@@ -86,60 +86,30 @@ export default function LoginPage() {
 						placeholder='Password'
 					/>
 					<p className='text-red-500 font-light text-xs'>{failedMessage}</p>
-					<div className='w-full flex flex-col mt-7'>
+					<div className='w-full flex flex-col gap-5 mt-7'>
 						<a
 							onClick={handleLogin}
-							type='button'
-							className='relative inline-flex items-center justify-center p-4 px-5 py-2 overflow-hidden font-medium text-white transition duration-300 ease-out border-2 border-stone-800 rounded-md shadow-md group mb-3 cursor-pointer'
+							href='#_'
+							className='relative inline-block px-4 py-2 font-medium group text-center'
 						>
-							<span className='absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease'>
-								<svg
-									className='w-6 h-6'
-									fill='none'
-									stroke='currentColor'
-									viewBox='0 0 24 24'
-									xmlns='http://www.w3.org/2000/svg'
-								>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth='2'
-										d='M14 5l7 7m0 0l-7 7m7-7H3'
-									></path>
-								</svg>
-							</span>
-							<span className='absolute flex items-center justify-center w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease'>
+							<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+							<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+							<span className='relative text-black group-hover:text-white '>
 								Login
 							</span>
-							<span className='relative invisible'>Button Text</span>
 						</a>
 
 						<a
 							onClick={handleGoogleLogin}
-							type='button'
-							className='relative inline-flex items-center justify-center p-4 px-5 py-2 overflow-hidden font-medium text-white transition duration-300 ease-out border-2 border-stone-800 rounded-md shadow-md group cursor-pointer'
+							href='#_'
+							className='relative inline-block px-4 py-2 font-medium group text-center'
 						>
-							<span className='absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-black group-hover:translate-x-0 ease'>
-								<svg
-									className='w-6 h-6'
-									fill='none'
-									stroke='currentColor'
-									viewBox='0 0 24 24'
-									xmlns='http://www.w3.org/2000/svg'
-								>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth='2'
-										d='M14 5l7 7m0 0l-7 7m7-7H3'
-									></path>
-								</svg>
-							</span>
-							<span className='absolute flex items-center justify-center w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease'>
+							<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+							<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+							<span className='relative text-black group-hover:text-white flex justify-center items-center'>
 								<img className='h-6 mr-2' src={glogo} alt='' />
 								Login with Google
 							</span>
-							<span className='relative invisible'>Button Text</span>
 						</a>
 
 						<p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-5'>

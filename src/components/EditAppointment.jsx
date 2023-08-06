@@ -111,13 +111,17 @@ export default function EditEvent() {
 			<Navbar />
 			<div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
 				<div className='flex justify-end w-full'>
-					<button
+					<a
 						onClick={() => navigate('/dashboard')}
-						type='button'
-						className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
+						href='#_'
+						className='relative inline-block px-4 py-2 font-medium group text-center'
 					>
-						Go back
-					</button>
+						<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+						<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+						<span className='relative text-black group-hover:text-white '>
+							Go Back
+						</span>
+					</a>
 				</div>
 				<div>
 					<form className='flex flex-col gap-3'>
@@ -181,7 +185,7 @@ export default function EditEvent() {
 							required
 						/>
 
-						<p className='text-stone-600'>Email:</p>
+						<p className='text-stone-600'>Email</p>
 						<input
 							onChange={handleSetEmail}
 							value={email}
@@ -190,7 +194,7 @@ export default function EditEvent() {
 							placeholder='example@mail.com'
 							required
 						/>
-						<p className='text-stone-600'>Phone:</p>
+						<p className='text-stone-600'>Phone</p>
 						<input
 							onChange={handleSetPhone}
 							value={phone}
@@ -201,13 +205,17 @@ export default function EditEvent() {
 						/>
 						<p className='text-red-500 font-light text-xs'>{failedMessage}</p>
 						<div className='mt-10 flex flex-row justify-end'>
-							<button
+							<a
 								onClick={handleSaveAppointment}
-								type='button'
-								className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
+								href='#_'
+								className='relative inline-block px-4 py-2 font-medium group text-center'
 							>
-								{isLoading ? 'Saving...' : 'Save changes'}
-							</button>
+								<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+								<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+								<span className='relative text-black group-hover:text-white '>
+									{isLoading ? 'Saving...' : 'Save changes'}
+								</span>
+							</a>
 						</div>
 					</form>
 				</div>

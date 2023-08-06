@@ -13,8 +13,8 @@ export const saveAppointment = createAsyncThunk(
 		attendees,
 	}) => {
 		try {
-			const appointmentsRef = collection(db, 'events'); // Correct the document path here if needed
-			const newAppointmentRef = doc(appointmentsRef); // Firestore will generate a unique ID
+			const appointmentsRef = collection(db, 'events');
+			const newAppointmentRef = doc(appointmentsRef);
 
 			await setDoc(newAppointmentRef, {
 				summary: summary,
@@ -36,7 +36,7 @@ export const saveAppointment = createAsyncThunk(
 			};
 
 			console.log('success');
-			return appointment; // Return the created appointment data
+			return appointment;
 		} catch (error) {
 			console.error(error);
 			throw error;

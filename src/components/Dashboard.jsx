@@ -34,7 +34,7 @@ export default function Dashboard() {
 	return (
 		<div>
 			<Navbar />
-			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
+			<div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
 				<div className='flex justify-between items-center w-full'>
 					{isLoading ? (
 						<LoadingAnim />
@@ -43,26 +43,17 @@ export default function Dashboard() {
 							Appointments
 						</p>
 					)}
-					<button
+					<a
 						onClick={() => navigate('/add')}
-						className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none'
+						href='#_'
+						className='relative inline-block px-4 py-2 font-medium group text-center'
 					>
-						<span className='hidden sm:inline'>+ Create Link</span>
-						<svg
-							xmlns='http://www.w3.org/2000/svg'
-							fill='none'
-							viewBox='0 0 24 24'
-							strokeWidth='1.5'
-							stroke='currentColor'
-							className='w-6 h-6 sm:hidden' // Show the SVG icon only on small screens
-						>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								d='M12 4.5v15m7.5-7.5h-15'
-							/>
-						</svg>
-					</button>
+						<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+						<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+						<span className='relative text-black group-hover:text-white '>
+							+ Create Link
+						</span>
+					</a>
 				</div>
 
 				{/* events container */}
