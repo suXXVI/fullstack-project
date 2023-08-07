@@ -2,7 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAppointmentById } from '../reducers/appointmentSlice';
-import { saveAppointment } from '../reducers/addtodb';
+// import { saveAppointment } from '../reducers/addtodb';
+import { saveAppointment } from '../reducers/appointmentSlice';
 import timesync from '../assets/timesync.png';
 import logo from '../assets/logo-only.png';
 import LoadingAnim from './LoadingAnim';
@@ -23,6 +24,7 @@ export default function OpenAppointment() {
 	const appointment = useSelector((state) =>
 		state.appointments.appointments.find((app) => app.id === parseInt(id))
 	);
+	const isLoading = useSelector((state) => state.appointments.isLoading);
 
 	useEffect(() => {
 		dispatch(fetchAppointmentById(id));
@@ -181,7 +183,7 @@ export default function OpenAppointment() {
 								type='button'
 								id='add_event_button'
 							>
-								Set Appointment
+								{isLoading ? 'Saving...' : 'Set Appointment'}
 							</button>
 						</form>
 					</div>
