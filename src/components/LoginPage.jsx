@@ -71,7 +71,7 @@ export default function LoginPage() {
 					Seamlessly manage your meetings and appointments.
 				</p>
 			</div>
-			<div className='flex flex-col max-w-md h-100 w-72 border border-stone-300 shadow-md shadow-stone-400  p-10 rounded-lg'>
+			<div className='flex flex-col max-w-md h-100 w-72 border border-black shadow-md p-10'>
 				<form className='flex flex-col gap-4'>
 					<input
 						onChange={(e) => setUsername(e.target.value)}
@@ -112,30 +112,32 @@ export default function LoginPage() {
 							</span>
 						</a>
 
-						<p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-5'>
-							Create an account
-							<span>
-								<a
-									onClick={() => navigate('/signup')}
-									className='text-black'
-									href=''
-								>
-									Sign Up
-								</a>
-							</span>
-						</p>
-						<p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-2'>
-							Forgot password?
-							<span>
-								<a
-									onClick={() => navigate('/reset')}
-									className='text-black'
-									href=''
-								>
-									Reset
-								</a>
-							</span>
-						</p>
+						<div>
+							<p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-5'>
+								Create an account
+								<span>
+									<a
+										onClick={() => navigate('/signup')}
+										className='text-black'
+										href=''
+									>
+										Sign Up
+									</a>
+								</span>
+							</p>
+							<p className='flex flex-row justify-center items-center gap-1 text-xs text-stone-400 mt-2'>
+								Forgot password?
+								<span>
+									<a
+										onClick={() => navigate('/reset')}
+										className='text-black'
+										href=''
+									>
+										Reset
+									</a>
+								</span>
+							</p>
+						</div>
 					</div>
 				</form>
 			</div>

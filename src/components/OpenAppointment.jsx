@@ -15,7 +15,8 @@ export default function OpenAppointment() {
 	const [fromTimeG, setFromTimeG] = useState('');
 	const [toDateG, setToDateG] = useState('');
 	const [toTimeG, setToTimeG] = useState('');
-	const [attendeesG, SetAttendeesG] = useState('');
+	const [attendee2, setAttendee2] = useState('');
+	const [attendeesG, setAttendeesG] = useState('');
 
 	const { id } = useParams();
 	const dispatch = useDispatch();
@@ -24,12 +25,10 @@ export default function OpenAppointment() {
 	);
 
 	useEffect(() => {
-		// Fetch the appointment when the component mounts
 		dispatch(fetchAppointmentById(id));
 	}, [dispatch, id]);
 
 	if (!appointment) {
-		// If the appointment is still being fetched or not found, show a loading message or an error message.
 		return (
 			<div className='flex h-screen'>
 				<LoadingAnim className='m-auto' />
@@ -43,21 +42,20 @@ export default function OpenAppointment() {
 	const emailWithoutQuotes = email.replace(/"/g, '');
 
 	const handleAddToDb = () => {
-		console.log('fromDateG:', fromDateG);
-		console.log('fromTimeG:', fromTimeG);
-		console.log('toDateG:', toDateG);
-		console.log('toTimeG:', toTimeG);
+		setAttendeesG(`${emailWithoutQuotes},${attendee2}`);
+		console.log(attendeesG);
 		const startDateTime = new Date(`${fromDateG}T${fromTimeG}`).toISOString();
 		const endDateTime = new Date(`${toDateG}T${toTimeG}`).toISOString();
 
 		const appointmentData = {
 			summary: summaryG,
 			location: locationG,
-			description: descriptionG, // Fix the typo here
+			description: descriptionG,
 			startDateTime: startDateTime,
 			endDateTime: endDateTime,
 			attendees: attendeesG,
 		};
+		console.log(appointmentData);
 		dispatch(saveAppointment(appointmentData));
 	};
 
@@ -81,11 +79,12 @@ export default function OpenAppointment() {
 				</div>
 			</nav>
 			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
-				<h1 className='w-full text-3xl font-bold'>Set your Appointment with</h1>
+				<h1 className='w-full text-3xl font-bold'>
+					Set your Appointment with {name}
+				</h1>
 				<div className='flex flex-col md:flex-row md:gap-10 w-full justify-between mt-10'>
 					<div className='flex flex-col gap-3 mb-16'>
-						<p className='text-3xl font-semibold'>{name}</p>
-						<p className='font-semibold'>{emailWithoutQuotes}</p>
+						<p className='text-2xl font-semibold'>{emailWithoutQuotes}</p>
 						<p className='font-semibold'>{title}</p>
 						<p className='font-semibold'>{content}</p>
 						<p className='font-semibold text-xl'>Days available</p>
@@ -168,8 +167,8 @@ export default function OpenAppointment() {
 							/>
 							<label>Your Email</label>
 							<input
-								onChange={(e) => SetAttendeesG(e.target.value)}
-								value={attendeesG}
+								onChange={(e) => setAttendee2(e.target.value)}
+								value={attendee2}
 								type='text'
 								name='attendees'
 								className='focus:outline-none'

@@ -47,7 +47,7 @@ export default function SignupPage() {
 					Seamlessly manage your meetings and appointments.
 				</p>
 			</div>
-			<div className='flex flex-col max-w-md h-96 w-72 border border-stone-300 shadow-md shadow-stone-400  p-10 rounded-lg'>
+			<div className='flex flex-col max-w-md h-100 w-72 border border-black shadow-md p-10'>
 				<form className='flex flex-col gap-4'>
 					<input
 						onChange={(e) => setUsername(e.target.value)}

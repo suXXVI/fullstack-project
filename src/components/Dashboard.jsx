@@ -57,7 +57,7 @@ export default function Dashboard() {
 				</div>
 
 				{/* events container */}
-				<div className='flex justify-start w-full mt-5'>
+				<div className='flex justify-center md:justify-start w-full mt-10'>
 					<AppointmentCard
 						appointments={isAdmin ? allAppointments : appointments}
 					/>

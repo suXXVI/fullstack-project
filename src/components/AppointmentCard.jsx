@@ -48,7 +48,7 @@ export default function AppointmentCard({ appointments }) {
 			{filteredAppointments.map((appointment) => (
 				<div
 					key={appointment.id}
-					className='w-80 max-w-96 p-6  border border-gray-200 rounded-lg sbg-stone-200 shadow-md shadow-slate-300'
+					className='w-80 max-w-96 p-6  border border-black'
 				>
 					<div className='flex items-center justify-between'>
 						<h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-800'>
