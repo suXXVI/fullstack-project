@@ -51,12 +51,12 @@ const nodemailAPI = 'https://nodemailer.suwanki.repl.co';
 
 export const sendEmail = createAsyncThunk(
 	'sendEmail/email',
-	async (appointmentData) => {
-		console.log(appointmentData);
+	async (forNodeMailer) => {
+		console.log(forNodeMailer);
 		try {
 			const response = await axios.post(
 				`${nodemailAPI}/send-email`,
-				appointmentData
+				forNodeMailer
 			);
 			return response.data;
 		} catch (error) {

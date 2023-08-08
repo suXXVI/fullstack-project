@@ -6,6 +6,7 @@ import { saveAppointment } from '../reducers/appointmentSlice';
 import timesync from '../assets/timesync.png';
 import logo from '../assets/logo-only.png';
 import LoadingAnim from './LoadingAnim';
+import { sendEmail } from '../reducers/appointmentSlice';
 
 export default function OpenAppointment() {
 	const [summaryG, setSummaryG] = useState('');
@@ -50,6 +51,18 @@ export default function OpenAppointment() {
 		const startDateTime = new Date(`${fromDateG}T${fromTimeG}`).toISOString();
 		const endDateTime = new Date(`${toDateG}T${toTimeG}`).toISOString();
 
+		// send to nodemailer api
+		const forNodeMailer = {
+			title: title,
+			name: name,
+			date: fromDateG,
+			fromTimeG: fromTimeG,
+			toTimeG: toTimeG,
+			email1: emailWithoutQuotes,
+			email2: attendee2,
+		};
+
+		// for google calendar
 		const appointmentData = {
 			summary: summaryG,
 			location: locationG,
@@ -63,6 +76,7 @@ export default function OpenAppointment() {
 		try {
 			setIsLoading(true);
 			await dispatch(saveAppointment(appointmentData));
+			await dispatch(sendEmail(forNodeMailer));
 			navigate('/endpage');
 		} catch (error) {
 			console.log('Error:', error);

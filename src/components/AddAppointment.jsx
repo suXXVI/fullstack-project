@@ -2,7 +2,6 @@ import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendEmail } from '../reducers/appointmentSlice';
 import {
 	addNewAppointment,
 	fetchAllAppointments,
@@ -67,7 +66,6 @@ export default function AddEvent() {
 		try {
 			setIsLoading(true);
 			await dispatch(addNewAppointment(appointmentData));
-			await dispatch(sendEmail(appointmentData));
 			navigate('/dashboard');
 		} catch (error) {
 			console.log('Error:', error);
