@@ -12,6 +12,7 @@ export default function EditEvent() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [title, setTitle] = useState('');
+	const [name, setName] = useState('');
 	const [content, setContent] = useState('');
 	const [fromDate, setFromDate] = useState('');
 	const [fromTime, setFromTime] = useState('');
@@ -35,6 +36,7 @@ export default function EditEvent() {
 			setToTime(appointment.totime);
 			setEmail(appointment.email);
 			setPhone(appointment.phone);
+			setName(appointment.name);
 		}
 	}, [id, appointments]);
 
@@ -51,6 +53,7 @@ export default function EditEvent() {
 	const handleSaveAppointment = async () => {
 		const eventData = {
 			title: title,
+			name: name,
 			content: content,
 			fromdate: fromDate,
 			fromtime: fromTime,
@@ -103,6 +106,10 @@ export default function EditEvent() {
 		setPhone(e.target.value);
 	};
 
+	const handleSetName = (e) => {
+		setName(e.target.value);
+	};
+
 	return (
 		<div>
 			<Navbar />
@@ -122,7 +129,7 @@ export default function EditEvent() {
 				</div>
 				<div>
 					<form className='flex flex-col gap-3'>
-						<p className='text-stone-600'>Appointment:</p>
+						<p className='text-stone-600'>Title</p>
 						<input
 							onChange={handleSetTitle}
 							value={title}
@@ -132,7 +139,17 @@ export default function EditEvent() {
 							required
 						/>
 
-						<p className='text-stone-600'>Description:</p>
+						<p className='text-stone-600'>Name</p>
+						<input
+							onChange={handleSetName}
+							value={name}
+							className='h-10 px-2 border-2 w-full focus:outline-none'
+							type='text'
+							placeholder='e.g., John Doe'
+							required
+						/>
+
+						<p className='text-stone-600'>Details</p>
 						<input
 							onChange={handleSetType}
 							value={content}
