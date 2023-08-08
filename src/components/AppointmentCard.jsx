@@ -19,7 +19,6 @@ export default function AppointmentCard({ appointments }) {
 
 	// Edit button
 	const handleEdit = (appointmentId) => {
-		console.log(appointmentId);
 		navigate(`/edit/${appointmentId}`);
 	};
 

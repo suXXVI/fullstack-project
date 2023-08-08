@@ -4,6 +4,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/fflogo.png';
 import timesync from '../assets/timesync.png';
+import AppLogo from './AppLogo';
 
 export default function LoginPage() {
 	const [failedMessage, setFailedMessage] = useState('');
@@ -34,12 +35,7 @@ export default function LoginPage() {
 
 	return (
 		<div className='flex flex-col justify-center items-center h-screen mx-auto'>
-			<div className='flex flex-col justify-center items-center gap-2 mb-10'>
-				<img className='h-10' src={timesync} alt='' />
-				<p className='text-xs text-stone-400 mt-3'>
-					Seamlessly manage your meetings and appointments.
-				</p>
-			</div>
+			<AppLogo />
 			<div className='flex flex-col max-w-md h-100 w-72 border border-black shadow-md p-10'>
 				<form className='flex flex-col gap-4'>
 					<input

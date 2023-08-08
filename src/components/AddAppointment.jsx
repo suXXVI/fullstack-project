@@ -21,13 +21,13 @@ export default function AddEvent() {
 	const [email, setEmail] = useState('');
 	const [phone, setPhone] = useState('');
 	const [failedMessage, setFailedMessage] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const userId = localStorage.getItem('userId');
 	const allAppointments = useSelector(
 		(state) => state.appointments.appointments
 	);
 
-	//getting all appointments from backend to check for data and time
 	useEffect(() => {
 		dispatch(fetchAllAppointments());
 	}, [dispatch]);
@@ -46,13 +46,11 @@ export default function AddEvent() {
 			userid: userId,
 		};
 
-		// checking if date and time is already booked
 		const isDateAvailable = allAppointments.some(
 			(appointment) =>
 				appointment.fromdate === fromDate && appointment.fromtime === fromTime
 		);
 
-		// form validation
 		if (!title || !fromDate || !fromTime || !email || !phone) {
 			setFailedMessage('Incomplete appointment details');
 			return;
@@ -67,8 +65,9 @@ export default function AddEvent() {
 		}
 
 		try {
-			dispatch(addNewAppointment(appointmentData));
-			dispatch(sendEmail(appointmentData));
+			setIsLoading(true);
+			await dispatch(addNewAppointment(appointmentData));
+			await dispatch(sendEmail(appointmentData));
 			navigate('/dashboard');
 		} catch (error) {
 			console.log('Error:', error);
@@ -87,7 +86,6 @@ export default function AddEvent() {
 		setContent(e.target.value);
 	};
 
-	// Set days available
 	const handleSetFromDate = (e) => {
 		setFromDate(e.target.value);
 	};
@@ -96,7 +94,6 @@ export default function AddEvent() {
 		setToDate(e.target.value);
 	};
 
-	//Set time available
 	const handleSetFromTime = (e) => {
 		setFromTime(e.target.value);
 	};
@@ -159,11 +156,10 @@ export default function AddEvent() {
 							className='h-10 w-full px-2 border-2 focus:outline-none'
 							type='text'
 							required
-							placeholder='Details'
+							placeholder='e.g., Team Meeting'
 						/>
 
 						{/* days available */}
-						{/* <p className='text-stone-600'>Days you are available:</p> */}
 						<p className='text-stone-600'>From</p>
 						<input
 							onChange={handleSetFromDate}
@@ -182,7 +178,6 @@ export default function AddEvent() {
 						/>
 
 						{/* time available */}
-						{/* <p className='text-stone-600'>Time you are available:</p> */}
 						<p className='text-stone-600'>From</p>
 						<input
 							onChange={handleSetFromTime}
@@ -229,7 +224,7 @@ export default function AddEvent() {
 								<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
 								<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
 								<span className='relative text-black group-hover:text-white '>
-									Create
+									{isLoading ? 'Creating...' : 'Create'}
 								</span>
 							</a>
 						</div>

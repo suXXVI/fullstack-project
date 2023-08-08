@@ -75,7 +75,6 @@ export const fetchAllAppointments = createAsyncThunk(
 	async () => {
 		const response = await fetch(`${BASE_URL}/appointments`);
 		const data = await response.json();
-		console.log(data);
 		return data;
 	}
 );
@@ -145,7 +144,7 @@ export const editAppointment = createAsyncThunk(
 			);
 			return response.data;
 		} catch (error) {
-			console.error(error);
+			console.error(error.response.data);
 			throw error;
 		}
 	}
@@ -161,6 +160,7 @@ const eventsSlice = createSlice({
 		isLoading: false,
 		error: null,
 		isAdmin: false,
+		addtoCalendar: false,
 	},
 	reducers: {
 		setAdmin: (state) => {
@@ -240,13 +240,13 @@ const eventsSlice = createSlice({
 				state.error = action.error.message;
 			})
 			.addCase(saveAppointment.pending, (state) => {
-				state.isLoading = true;
+				state.addtoCalendar = true;
 			})
 			.addCase(saveAppointment.fulfilled, (state) => {
-				state.isLoading = false;
+				state.addtoCalendar = false;
 			})
 			.addCase(saveAppointment.rejected, (state, action) => {
-				state.isLoading = false;
+				state.addtoCalendar = false;
 				state.error = action.error.message;
 			})
 			.addCase(RESET_APPOINTMENTS, (state) => {

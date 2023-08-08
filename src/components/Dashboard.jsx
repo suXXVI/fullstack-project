@@ -35,7 +35,7 @@ export default function Dashboard() {
 		<div>
 			<Navbar />
 			<div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
-				<div className='flex justify-between items-center w-full'>
+				<div className='flex justify-between items-center w-full border-b border-stone-300 pb-10'>
 					{isLoading ? (
 						<LoadingAnim />
 					) : (
@@ -57,10 +57,12 @@ export default function Dashboard() {
 				</div>
 
 				{/* events container */}
-				<div className='flex justify-center md:justify-start w-full mt-10'>
-					<AppointmentCard
-						appointments={isAdmin ? allAppointments : appointments}
-					/>
+				<div className='flex px-20 justify-center w-full mt-10 md:justify-start md:px-0'>
+					<div className='flex flex-wrap justify-center'>
+						<AppointmentCard
+							appointments={isAdmin ? allAppointments : appointments}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

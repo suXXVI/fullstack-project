@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editAppointment } from '../reducers/appointmentSlice';
-import LoadingAnim from './LoadingAnim';
 
 export default function EditEvent() {
 	const { id } = useParams();
@@ -87,10 +86,8 @@ export default function EditEvent() {
 
 	const handleSetToDate = (e) => {
 		setToDate(e.target.value);
-		console.log(toDate);
 	};
 
-	//Set time available
 	const handleSetFromTime = (e) => {
 		setFromTime(e.target.value);
 	};

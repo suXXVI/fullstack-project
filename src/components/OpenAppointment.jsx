@@ -1,8 +1,7 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAppointmentById } from '../reducers/appointmentSlice';
-// import { saveAppointment } from '../reducers/addtodb';
 import { saveAppointment } from '../reducers/appointmentSlice';
 import timesync from '../assets/timesync.png';
 import logo from '../assets/logo-only.png';
@@ -17,18 +16,23 @@ export default function OpenAppointment() {
 	const [toDateG, setToDateG] = useState('');
 	const [toTimeG, setToTimeG] = useState('');
 	const [attendee2, setAttendee2] = useState('');
-	const [attendeesG, setAttendeesG] = useState('');
+	const [emailWithoutQuotes, setEmailWithoutQuotes] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const appointment = useSelector((state) =>
 		state.appointments.appointments.find((app) => app.id === parseInt(id))
 	);
-	const isLoading = useSelector((state) => state.appointments.isLoading);
 
 	useEffect(() => {
 		dispatch(fetchAppointmentById(id));
-	}, [dispatch, id]);
+		if (appointment) {
+			const email = appointment.email;
+			setEmailWithoutQuotes(email.replace(/"/g, ''));
+		}
+	}, [dispatch, id, appointment, emailWithoutQuotes]);
 
 	if (!appointment) {
 		return (
@@ -38,14 +42,11 @@ export default function OpenAppointment() {
 		);
 	}
 
-	const { title, content, fromdate, todate, email, name } = appointment;
+	const { title, content, fromdate, todate, name } = appointment;
 	const fromDateFormatted = new Date(fromdate).toISOString().slice(0, 10);
 	const toDateFormatted = new Date(todate).toISOString().slice(0, 10);
-	const emailWithoutQuotes = email.replace(/"/g, '');
 
-	const handleAddToDb = () => {
-		setAttendeesG(`${emailWithoutQuotes},${attendee2}`);
-		console.log(attendeesG);
+	const handleAddToDb = async () => {
 		const startDateTime = new Date(`${fromDateG}T${fromTimeG}`).toISOString();
 		const endDateTime = new Date(`${toDateG}T${toTimeG}`).toISOString();
 
@@ -55,10 +56,21 @@ export default function OpenAppointment() {
 			description: descriptionG,
 			startDateTime: startDateTime,
 			endDateTime: endDateTime,
-			attendees: attendeesG,
+			attendees: `${emailWithoutQuotes},${attendee2}`,
 		};
 		console.log(appointmentData);
-		dispatch(saveAppointment(appointmentData));
+
+		try {
+			setIsLoading(true);
+			await dispatch(saveAppointment(appointmentData));
+			navigate('/endpage');
+		} catch (error) {
+			console.log('Error:', error);
+		}
+	};
+
+	const handleAddAttendee = (e) => {
+		setAttendee2(e.target.value);
 	};
 
 	return (
@@ -80,7 +92,7 @@ export default function OpenAppointment() {
 					</a>
 				</div>
 			</nav>
-			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 px-20'>
+			<div className='flex flex-col justify-center items-center mx-auto max-w-6xl mt-10 mb-10 px-20'>
 				<h1 className='w-full text-3xl font-bold'>
 					Set your Appointment with {name}
 				</h1>
@@ -106,6 +118,7 @@ export default function OpenAppointment() {
 								placeholder='Summary'
 								id='summary-input'
 								className='focus:outline-none'
+								autoComplete='off'
 							/>
 							<label>Location</label>
 							<input
@@ -116,6 +129,7 @@ export default function OpenAppointment() {
 								placeholder='Location'
 								id='location-input'
 								className='focus:outline-none'
+								autoComplete='off'
 							/>
 							<label>Description</label>
 							<input
@@ -126,6 +140,7 @@ export default function OpenAppointment() {
 								placeholder='Description'
 								id='description-input'
 								className='focus:outline-none'
+								autoComplete='off'
 							/>
 							<label>Start Date</label>
 							<input
@@ -135,6 +150,7 @@ export default function OpenAppointment() {
 								name='start_date'
 								id='startdate-input'
 								className='focus:outline-none'
+								autoComplete='off'
 								min={fromDateFormatted}
 								max={toDateFormatted}
 							/>
@@ -146,6 +162,7 @@ export default function OpenAppointment() {
 								name='start_time'
 								id='starttime-input'
 								className='focus:outline-none'
+								autoComplete='off'
 							/>
 							<label>End Date</label>
 							<input
@@ -155,6 +172,7 @@ export default function OpenAppointment() {
 								name='end_date'
 								id='enddate-input'
 								className='focus:outline-none'
+								autoComplete='off'
 								min={fromDateFormatted}
 								max={toDateFormatted}
 							/>
@@ -166,25 +184,31 @@ export default function OpenAppointment() {
 								name='end_time'
 								id='endtime-input'
 								className='focus:outline-none'
+								autoComplete='off'
 							/>
 							<label>Your Email</label>
 							<input
-								onChange={(e) => setAttendee2(e.target.value)}
+								onChange={handleAddAttendee}
 								value={attendee2}
 								type='text'
 								name='attendees'
 								className='focus:outline-none'
 								placeholder='example@mail.com'
 								id='attendees-input'
+								autoComplete='off'
 							/>
-							<button
+
+							<a
 								onClick={handleAddToDb}
-								className='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 bg-black rounded-lg hover:bg-stone-800 focus:shadow-outline focus:outline-none w-full'
-								type='button'
-								id='add_event_button'
+								href='#_'
+								className='relative inline-block px-4 py-2 font-medium group text-center'
 							>
-								{isLoading ? 'Saving...' : 'Set Appointment'}
-							</button>
+								<span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+								<span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+								<span className='relative text-black group-hover:text-white '>
+									{isLoading ? 'Saving...' : 'Set Appointment'}
+								</span>
+							</a>
 						</form>
 					</div>
 				</div>
