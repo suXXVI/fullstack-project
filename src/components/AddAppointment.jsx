@@ -22,6 +22,8 @@ export default function AddEvent() {
 	const [failedMessage, setFailedMessage] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
+	const currentDate = new Date().toISOString().split('T')[0];
+
 	const userId = localStorage.getItem('userId');
 	const allAppointments = useSelector(
 		(state) => state.appointments.appointments
@@ -164,6 +166,7 @@ export default function AddEvent() {
 							value={fromDate}
 							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='date'
+							min={currentDate}
 							required
 						/>
 						<p className='text-stone-600'>to</p>
@@ -172,6 +175,7 @@ export default function AddEvent() {
 							value={toDate}
 							className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
 							type='date'
+							min={currentDate}
 							required
 						/>
 
