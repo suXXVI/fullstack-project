@@ -9,11 +9,8 @@ import LoadingAnim from './LoadingAnim';
 import { sendEmail } from '../reducers/appointmentSlice';
 
 export default function OpenAppointment() {
-  //   const [summaryG, setSummaryG] = useState('');
-  const [locationG, setLocationG] = useState('');
   const [fromDateG, setFromDateG] = useState('');
   const [fromTimeG, setFromTimeG] = useState('');
-  const [toDateG, setToDateG] = useState('');
   const [toTimeG, setToTimeG] = useState('');
   const [attendee2, setAttendee2] = useState('');
   const [emailWithoutQuotes, setEmailWithoutQuotes] = useState('');
@@ -48,7 +45,7 @@ export default function OpenAppointment() {
 
   const handleAddToDb = async () => {
     const startDateTime = new Date(`${fromDateG}T${fromTimeG}`).toISOString();
-    const endDateTime = new Date(`${toDateG}T${toTimeG}`).toISOString();
+    const endDateTime = new Date(`${fromDateG}T${toTimeG}`).toISOString();
 
     // send to nodemailer api
     const forNodeMailer = {
@@ -123,38 +120,7 @@ export default function OpenAppointment() {
 
           <div className='flex-1 max-w-md'>
             <form className='form flex flex-col gap-5' id='event_form'>
-              <label>Summary</label>
-              {/* <input
-                value={title}
-                type='text'
-                name='summary'
-                placeholder='Summary'
-                id='summary-input'
-                className='h-10 px-2 border-2 w-full focus:outline-none'
-                autoComplete='off'
-              /> */}
-              {/* <label>Location</label>
-              <input
-                onChange={(e) => setLocationG(e.target.value)}
-                value={locationG}
-                type='text'
-                name='location'
-                placeholder='Location'
-                id='location-input'
-                className='h-10 px-2 border-2 w-full focus:outline-none'
-                autoComplete='off'
-              /> */}
-              {/* <label>Description</label>
-              <input
-                value={content}
-                type='text'
-                name='description'
-                placeholder='Description'
-                id='description-input'
-                className='h-10 px-2 border-2 w-full focus:outline-none'
-                autoComplete='off'
-              /> */}
-              <label>Start Date</label>
+              <label>Pick a Date</label>
               <input
                 onChange={(e) => setFromDateG(e.target.value)}
                 value={fromDateG}
@@ -175,18 +141,6 @@ export default function OpenAppointment() {
                 id='starttime-input'
                 className='h-10 px-2 border-2 w-full focus:outline-none'
                 autoComplete='off'
-              />
-              <label>End Date</label>
-              <input
-                onChange={(e) => setToDateG(e.target.value)}
-                value={toDateG}
-                type='date'
-                name='end_date'
-                id='enddate-input'
-                className='h-10 px-2 border-2 w-full focus:outline-none'
-                autoComplete='off'
-                min={fromDateFormatted}
-                max={toDateFormatted}
               />
               <label>End Time</label>
               <input
@@ -213,7 +167,7 @@ export default function OpenAppointment() {
             <a
               onClick={handleAddToDb}
               href='#_'
-              className='relative inline-block px-4 py-2 font-medium group text-center'
+              className='relative inline-block px-4 py-2 font-medium group text-center mt-5'
             >
               <span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
               <span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
