@@ -22,6 +22,8 @@ export default function AppointmentCard({ appointments }) {
   //share link
   const handleShare = async (appointmentId) => {
     const appointmentUrl = `${window.location.origin}/openappointment/${appointmentId}`;
+    // maybe use for button
+    // navigate(`/openappointment/${appointmentId}`);
 
     try {
       await navigator.clipboard.writeText(appointmentUrl);
@@ -82,6 +84,22 @@ export default function AppointmentCard({ appointments }) {
             )}
           </div>
           <div className='flex flex-row gap-2'>
+            <div className='flex gap-2'>
+              <a
+                onClick={() =>
+                  window.open(`/openappointment/${appointment.id}`)
+                }
+                href='#_'
+                className='relative inline-block px-4 py-2 font-medium group text-center'
+              >
+                <span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+                <span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+                <span className='relative text-black group-hover:text-white '>
+                  Open
+                </span>
+              </a>
+            </div>
+
             {isAdmin ? (
               <p></p>
             ) : (
