@@ -221,7 +221,7 @@ export default function AddEvent() {
               onChange={handleSetEmail}
               value={email}
               className='h-9 py-3 px-2 border-2 focus:outline-none w-full'
-              type='text'
+              type='email'
               placeholder='example@mail.com'
               required
             />

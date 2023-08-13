@@ -196,7 +196,7 @@ export default function OpenAppointment() {
               <input
                 onChange={handleAddAttendee}
                 value={attendee2}
-                type='text'
+                type='email'
                 name='attendees'
                 className='h-10 px-2 border-2 w-full focus:outline-none'
                 placeholder='example@mail.com'
