@@ -178,8 +178,7 @@ export default function EditEvent() {
             />
 
             {/* days available */}
-
-            <p className='text-stone-600'>From</p>
+            <p className='text-stone-600'>From (Day)</p>
             <input
               onChange={handleSetFromDate}
               value={fromDate}
@@ -188,7 +187,7 @@ export default function EditEvent() {
               placeholder='From'
               required
             />
-            <p className='text-stone-600'>to</p>
+            <p className='text-stone-600'>To (Day)</p>
             <input
               onChange={handleSetToDate}
               value={toDate}
@@ -198,8 +197,7 @@ export default function EditEvent() {
             />
 
             {/* time available */}
-
-            <p className='text-stone-600'>From</p>
+            <p className='text-stone-600'>From (Time)</p>
             <input
               onChange={handleSetFromTime}
               value={fromTime}
@@ -208,7 +206,7 @@ export default function EditEvent() {
               required
             />
 
-            <p className='text-stone-600'>To</p>
+            <p className='text-stone-600'>To (Time)</p>
             <input
               onChange={handleSetToTime}
               value={toTime}

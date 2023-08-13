@@ -162,6 +162,7 @@ const eventsSlice = createSlice({
     error: null,
     isAdmin: false,
     addtoCalendar: false,
+    isCopied: false,
   },
   reducers: {
     setAdmin: (state) => {

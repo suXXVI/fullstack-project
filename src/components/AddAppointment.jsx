@@ -178,7 +178,7 @@ export default function AddEvent() {
             />
 
             {/* days available */}
-            <p className='text-stone-600'>From</p>
+            <p className='text-stone-600'>From (Day)</p>
             <input
               onChange={handleSetFromDate}
               value={fromDate}
@@ -187,7 +187,7 @@ export default function AddEvent() {
               min={currentDate}
               required
             />
-            <p className='text-stone-600'>to</p>
+            <p className='text-stone-600'>to (Day)</p>
             <input
               onChange={handleSetToDate}
               value={toDate}
@@ -198,7 +198,7 @@ export default function AddEvent() {
             />
 
             {/* time available */}
-            <p className='text-stone-600'>From</p>
+            <p className='text-stone-600'>From (Time)</p>
             <input
               onChange={handleSetFromTime}
               value={fromTime}
@@ -207,7 +207,7 @@ export default function AddEvent() {
               required
             />
 
-            <p className='text-stone-600'>To</p>
+            <p className='text-stone-600'>To (Time)</p>
             <input
               onChange={handleSetToTime}
               value={toTime}
