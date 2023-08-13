@@ -15,6 +15,7 @@ export default function OpenAppointment() {
   const [attendee2, setAttendee2] = useState('');
   const [emailWithoutQuotes, setEmailWithoutQuotes] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [failedMessage, setFailedMessage] = useState('');
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -46,6 +47,10 @@ export default function OpenAppointment() {
   const toDateFormatted = new Date(todate).toISOString().slice(0, 10);
 
   const handleAddToDb = async () => {
+    if (!fromDateG || !attendee2 || toTimeG) {
+      setFailedMessage('Please fill in all details');
+    }
+
     const startDateTime = new Date(`${fromDateG}T${fromTimeG}`).toISOString();
     const endDateTime = new Date(`${fromDateG}T${toTimeG}`).toISOString();
 
@@ -198,10 +203,13 @@ export default function OpenAppointment() {
                 id='attendees-input'
                 autoComplete='off'
               />
+              <p className='text-red-500'>
+                {failedMessage ? failedMessage : ''}
+              </p>
               <a
                 onClick={handleAddToDb}
                 href='#_'
-                className='relative inline-block px-4 py-2 font-medium group text-center mt-5'
+                className='relative inline-block px-4 py-2 font-medium group text-center '
               >
                 <span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
                 <span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
