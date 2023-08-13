@@ -22,8 +22,6 @@ export default function AppointmentCard({ appointments }) {
   //share link
   const handleShare = async (appointmentId) => {
     const appointmentUrl = `${window.location.origin}/openappointment/${appointmentId}`;
-    // maybe use for button
-    // navigate(`/openappointment/${appointmentId}`);
 
     try {
       await navigator.clipboard.writeText(appointmentUrl);
