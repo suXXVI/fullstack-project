@@ -1,6 +1,5 @@
 import Navbar from './Navbar';
-// import pfp from '../assets/pfp.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { storage } from '../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -9,33 +8,34 @@ import { AuthContext } from './AuthProvider';
 import { updateProfile } from 'firebase/auth';
 
 export default function ProfilePage() {
-  const [imageToUpload, setImageToUpload] = useState(null);
-  const [url, setUrl] = useState(null);
-  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const profilepic = localStorage.getItem('profilepic');
-  const cleanedProfilePic = profilepic.replace(/"/g, '');
+  const cleanedProfilePic = profilepic ? profilepic.replace(/"/g, '') : null;
+  const [imageToUpload, setImageToUpload] = useState(null);
+  const url =
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png';
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(currentUser);
+  });
 
   const handleFileChange = (e) => {
     setImageToUpload(e.target.files[0]);
   };
 
   const handleUpload = async () => {
-    console.log(cleanedProfilePic);
     try {
       if (currentUser) {
         const imageRef = ref(storage, currentUser.uid);
-
         await uploadBytes(imageRef, imageToUpload);
-
         const url = await getDownloadURL(imageRef);
 
         // Update the user's profile with the new photoURL
         await updateProfile(currentUser, { photoURL: url });
-
-        setUrl(url);
+        window.location.reload(true);
         setImageToUpload(null);
-        navigate('/profile');
+        window.location.reload(false);
       }
     } catch (error) {
       console.error(error.message);
@@ -61,7 +61,7 @@ export default function ProfilePage() {
       <div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
         <div className='flex flex-col w-56'>
           <img
-            src={cleanedProfilePic}
+            src={cleanedProfilePic || url}
             className='border-2 border-stone-300 h-20 w-20'
             alt='profile pic'
           />

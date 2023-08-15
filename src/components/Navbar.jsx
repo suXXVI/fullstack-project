@@ -14,14 +14,13 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const [userId, setUserId] = useLocalStorage('userId', null);
-  const [profilePic, setProfilepic] = useLocalStorage('profilepic', null);
   const email = localStorage.getItem('email');
   const cleanedEmail = email.replace(/['"]+/g, '');
 
   const handleLogout = () => {
     auth.signOut();
     setUserId(null);
-    setProfilepic(null);
+    localStorage.removeItem('profilepic');
     dispatch(resetAppointments());
   };
   if (!currentUser && userId == null) {
