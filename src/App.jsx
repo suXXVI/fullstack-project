@@ -10,26 +10,28 @@ import OpenAppointment from './components/OpenAppointment';
 import EditAppointment from './components/EditAppointment';
 import ResetPassword from './components/ResetPassword';
 import EndPage from './components/EndPage';
+import ProfilePage from './components/ProfilePage';
 
 function App() {
-	return (
-		<AuthProvider>
-			<Provider store={store}>
-				<BrowserRouter>
-					<Routes>
-						<Route path='*' element={<LoginPage />} />
-						<Route path='/signup' element={<SignupPage />} />
-						<Route path='/reset' element={<ResetPassword />} />
-						<Route path='/dashboard' element={<Dashboard />} />
-						<Route path='/add' element={<AddAppointment />} />
-						<Route path='/endpage' element={<EndPage />} />
-						<Route path='/openappointment/:id' element={<OpenAppointment />} />
-						<Route path='/edit/:id' element={<EditAppointment />} />
-					</Routes>
-				</BrowserRouter>
-			</Provider>
-		</AuthProvider>
-	);
+  return (
+    <AuthProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='*' element={<LoginPage />} />
+            <Route path='/signup' element={<SignupPage />} />
+            <Route path='/reset' element={<ResetPassword />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/add' element={<AddAppointment />} />
+            <Route path='/endpage' element={<EndPage />} />
+            <Route path='/openappointment/:id' element={<OpenAppointment />} />
+            <Route path='/edit/:id' element={<EditAppointment />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </AuthProvider>
+  );
 }
 
 export default App;
