@@ -9,7 +9,6 @@ export function AuthProvider({ children }) {
   const [userId, setUserId] = useLocalStorage('userId', null);
   const [email, setEmail] = useLocalStorage('email', null);
   const [profilePic, setProfilepic] = useLocalStorage('profilepic', null);
-  // const [profilepic, setProfilepic] = useState(null);
 
   useEffect(() => {
     return auth.onAuthStateChanged((user) => {

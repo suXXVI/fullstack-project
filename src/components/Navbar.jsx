@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className='flex flex-row justify-center items-center gap-5'>
           <a
             onClick={handleGoToProfile}
-            className='font-semibold text-gray-800 hidden sm:flex'
+            className='font-semibold text-gray-800 hidden sm:flex cursor-pointer'
           >
             {cleanedEmail}
           </a>

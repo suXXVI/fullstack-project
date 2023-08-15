@@ -17,13 +17,14 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(currentUser);
+    console.log(`cleanedProfilePic is ${cleanedProfilePic}`);
   });
 
   const handleFileChange = (e) => {
     setImageToUpload(e.target.files[0]);
   };
 
+  // upload profile picture
   const handleUpload = async () => {
     try {
       if (currentUser) {
@@ -45,37 +46,48 @@ export default function ProfilePage() {
   return (
     <div>
       <Navbar />
-      <div>
-        <a
-          onClick={() => navigate('/dashboard')}
-          href='#_'
-          className='relative inline-block px-4 py-2 font-medium group text-center'
-        >
-          <span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
-          <span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
-          <span className='relative text-black group-hover:text-white '>
-            Go Back
-          </span>
-        </a>
-      </div>
       <div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
-        <div className='flex flex-col w-56'>
-          <img
-            src={cleanedProfilePic || url}
-            className='border-2 border-stone-300 h-20 w-20'
-            alt='profile pic'
-          />
-          <input type='file' onChange={handleFileChange} />
-          <button
-            onClick={handleUpload}
+        <div className='flex justify-end w-full'>
+          <a
+            onClick={() => navigate('/dashboard')}
+            href='#_'
             className='relative inline-block px-4 py-2 font-medium group text-center'
           >
             <span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
             <span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
-            <span className='relative text-black group-hover:text-white'>
-              Upload
+            <span className='relative text-black group-hover:text-white '>
+              Go Back
             </span>
-          </button>
+          </a>
+        </div>
+        <div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
+          <div className='flex flex-col items-center w-56'>
+            {cleanedProfilePic ? (
+              <img
+                src={cleanedProfilePic}
+                className='h-76 w-76 rounded-full border-2 border-black'
+                alt='profile pic'
+              />
+            ) : (
+              <img
+                src={url}
+                className='h-76 w-76 rounded-full border-2 border-black'
+                alt='default pic'
+              />
+            )}
+
+            <input type='file' onChange={handleFileChange} />
+            <button
+              onClick={handleUpload}
+              className='relative inline-block px-4 py-2 font-medium group text-center'
+            >
+              <span className='absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0'></span>
+              <span className='absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black'></span>
+              <span className='relative text-black group-hover:text-white'>
+                Upload
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

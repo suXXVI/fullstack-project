@@ -25,7 +25,7 @@ export default function SignupPage() {
         username,
         password
       );
-      console.log(res.user);
+      // console.log(res.user);
     } catch (error) {
       console.error(error);
       if (password.length < 4) {
