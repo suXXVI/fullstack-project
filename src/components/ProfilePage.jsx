@@ -62,19 +62,11 @@ export default function ProfilePage() {
         </div>
         <div className='flex flex-col p-10 sm:max-w-6xl sm:mx-auto'>
           <div className='flex flex-col items-center w-56'>
-            {cleanedProfilePic ? (
-              <img
-                src={cleanedProfilePic}
-                className='h-76 w-76 rounded-full border-2 border-black'
-                alt='profile pic'
-              />
-            ) : (
-              <img
-                src={url}
-                className='h-76 w-76 rounded-full border-2 border-black'
-                alt='default pic'
-              />
-            )}
+            <img
+              src={cleanedProfilePic || url}
+              className='h-76 w-76 rounded-full border-2 border-black'
+              alt='profile pic'
+            />
 
             <input type='file' onChange={handleFileChange} />
             <button
