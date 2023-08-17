@@ -47,7 +47,7 @@ export default function OpenAppointment() {
   const toDateFormatted = new Date(todate).toISOString().slice(0, 10);
 
   const handleAddToDb = async () => {
-    if (!fromDateG || !attendee2 || toTimeG) {
+    if (!fromDateG || !attendee2 || !toTimeG || !fromTimeG) {
       setFailedMessage('Please fill in all details');
     }
 
