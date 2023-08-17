@@ -93,7 +93,7 @@ export default function ProfilePage() {
         </div>
         <div className='flex mx-auto flex-col p-10 sm:max-w-6xl sm:mx-auto'>
           <div className='flex flex-col items-center w-56'>
-            <p className='font-bold mt-5 text-3xl'>Your Profile</p>
+            {/* <p className='text-9xl font-bold mt-5'>Your Profile</p> */}
             <div className='mt-10'>
               <img
                 src={imageSrc}
@@ -122,7 +122,7 @@ export default function ProfilePage() {
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder='Enter new username'
-                  className='border-2 pl-10'
+                  className='border-2 pl-10 mb-5'
                 />
               ) : (
                 (currentUser && currentUser.displayName) || 'Loading...'
