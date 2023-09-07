@@ -30,6 +30,7 @@ export default function AddEvent() {
     (state) => state.appointments.appointments
   );
 
+  //getting all appointments
   useEffect(() => {
     dispatch(fetchAllAppointments());
   }, [dispatch]);
